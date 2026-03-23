@@ -1,4 +1,14 @@
+import type { Metadata } from "next";
 import Link from "next/link";
+
+export const metadata: Metadata = {
+  title: "Part 1：重新認識 Claude — Claude 應用講座",
+  description: "Claude vs ChatGPT vs Gemini 決策框架、功能地圖、資安說明。學會選擇最適合你的 AI 工具。",
+  openGraph: {
+    title: "Part 1：重新認識 Claude",
+    description: "Claude vs ChatGPT vs Gemini 決策框架、功能地圖、資安說明",
+  },
+};
 
 const sections = [
   {

@@ -237,10 +237,22 @@ export default function Part5Page() {
             </p>
           </div>
 
-          <div className="bg-primary/5 border-l-4 border-primary rounded-r-xl p-4">
+          <div className="bg-primary/5 border-l-4 border-primary rounded-r-xl p-4 mb-4">
             <p className="text-sm italic text-foreground/70">
               「A 班教你跟 Claude 溝通，B 班教你設計 Claude 的工作方式」
             </p>
+          </div>
+
+          <div className="text-center">
+            <a
+              href="https://www.accupass.com/go/claude0409"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center gap-2 px-6 py-3 bg-accent text-primary-dark font-semibold rounded-xl hover:bg-accent-light transition-colors shadow-lg text-sm"
+            >
+              B 班報名：4/9（四）Skills + MCP 實戰 →
+            </a>
+            <p className="text-xs text-muted mt-2">3 小時 · $500 · 含回放</p>
           </div>
         </div>
       </div>

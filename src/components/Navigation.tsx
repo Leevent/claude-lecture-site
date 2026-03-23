@@ -40,12 +40,14 @@ export default function Navigation() {
                 {item.label}
               </Link>
             ))}
-            <Link
-              href="/login"
-              className="ml-2 px-4 py-2 rounded-lg text-sm font-medium border border-accent/40 text-accent hover:bg-accent hover:text-white transition-colors"
+            <a
+              href="https://www.accupass.com/go/claude0409"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="ml-2 px-4 py-2 rounded-lg text-sm font-medium bg-accent text-primary-dark hover:bg-accent-light transition-colors"
             >
-              登入
-            </Link>
+              B 班報名
+            </a>
           </div>
 
           {/* Mobile menu button */}

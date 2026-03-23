@@ -1,4 +1,14 @@
+import type { Metadata } from "next";
 import Link from "next/link";
+
+export const metadata: Metadata = {
+  title: "Part 4：Co-work 初體驗 — 不寫程式的自動化 — Claude 應用講座",
+  description: "Co-work vs Claude Code 比較、四大核心能力、兩個 Live Demo 場景、AI 三層能力模型。",
+  openGraph: {
+    title: "Part 4：Co-work 初體驗 — 不寫程式的自動化",
+    description: "兩個 Live Demo 場景、AI 三層能力模型",
+  },
+};
 
 const section1 = {
   id: "4-1",

@@ -756,11 +756,19 @@ export default function TemplatesPage() {
         <p className="text-white/60 text-sm mb-4">
           B 班教你設計 Skills 和串接 MCP，把 Claude 變成你的自動化團隊
         </p>
-        <div className="flex items-center justify-center gap-4 text-sm text-accent-light">
+        <div className="flex items-center justify-center gap-4 text-sm text-accent-light mb-5">
           <span>B 班：4/9（四）19:00-22:00</span>
           <span>&#183;</span>
           <span>$500</span>
         </div>
+        <a
+          href="https://www.accupass.com/go/claude0409"
+          target="_blank"
+          rel="noopener noreferrer"
+          className="inline-flex items-center gap-2 px-6 py-3 bg-accent text-primary-dark font-semibold rounded-xl hover:bg-accent-light transition-colors shadow-lg text-sm"
+        >
+          立即報名 B 班 →
+        </a>
       </div>
     </div>
   );

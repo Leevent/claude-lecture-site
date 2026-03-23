@@ -1,4 +1,14 @@
+import type { Metadata } from "next";
 import Link from "next/link";
+
+export const metadata: Metadata = {
+  title: "Part 3：Projects & Artifacts — 你的 AI 工作空間 — Claude 應用講座",
+  description: "Projects 入職法、Artifacts 交付物、三種核心文件模板。把 Claude 從聊天工具升級為工作夥伴。",
+  openGraph: {
+    title: "Part 3：你的 AI 工作空間 — Projects & Artifacts",
+    description: "Projects 入職法、Artifacts 交付物、三種核心文件模板",
+  },
+};
 
 const sections = [
   {

@@ -1,4 +1,14 @@
+import type { Metadata } from "next";
 import Link from "next/link";
+
+export const metadata: Metadata = {
+  title: "學習資源 — Claude 應用講座",
+  description: "Claude 官方資源、課堂核心工具、延伸學習影片、推薦閱讀。一站式學習資源整理。",
+  openGraph: {
+    title: "學習資源 — Claude 應用講座",
+    description: "Claude 官方資源、課堂核心工具、延伸學習影片、推薦閱讀",
+  },
+};
 
 const sections = [
   {

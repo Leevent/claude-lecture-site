@@ -1,4 +1,14 @@
+import type { Metadata } from "next";
 import Link from "next/link";
+
+export const metadata: Metadata = {
+  title: "Part 2：AI 溝通術 — Prompt 不是咒語 — Claude 應用講座",
+  description: "五元素溝通框架（Role / Task / Context / Format / Quality）、實戰練習、對話迭代技巧。學會跟 AI 好好溝通的方法。",
+  openGraph: {
+    title: "Part 2：AI 溝通術 — Prompt 不是咒語",
+    description: "五元素溝通框架、實戰練習、對話迭代技巧",
+  },
+};
 
 const sections = [
   {
