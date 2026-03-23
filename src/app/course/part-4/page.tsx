@@ -66,10 +66,9 @@ const section2 = {
       active: false,
     },
   ],
-  quote:
-    "「為什麼龍蝦用的不好？因為他連自己的工作都沒搞清楚，就想叫龍蝦幫他全部做完。先流程、後工具。」",
-  quoteAuthor: "何佳勳",
-  stat: "對 87% 學員是全新功能 — 打造「原來可以這樣用！」的驚喜感",
+  quote: "",
+  quoteAuthor: "",
+  stat: "",
 };
 
 export default function Part4Page() {
@@ -193,7 +192,7 @@ export default function Part4Page() {
           </div>
 
           <p className="text-sm font-medium mb-3">
-            &#128200; AI 三層能力模型（何佳勳，行銷部落）
+            &#128200; AI 三層能力模型
           </p>
           <div className="space-y-2 mb-4">
             {section2.levels.map((l) => (
@@ -228,18 +227,7 @@ export default function Part4Page() {
             ))}
           </div>
 
-          <div className="bg-primary/5 border-l-4 border-primary rounded-r-xl p-4 mb-3">
-            <p className="text-sm italic text-foreground/70">
-              {section2.quote}
-            </p>
-            <p className="text-xs text-muted mt-1">
-              — {section2.quoteAuthor}
-            </p>
-          </div>
-
-          <p className="text-xs text-muted">
-            &#128202; {section2.stat}
-          </p>
+          {/* removed: quote + stat */}
         </div>
       </div>
 
