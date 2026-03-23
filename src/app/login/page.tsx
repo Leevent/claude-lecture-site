@@ -55,15 +55,15 @@ export default function LoginPage() {
           </p>
           <ul className="text-sm text-left space-y-2 mb-6">
             <li className="flex items-center gap-2">
-              <span className="text-primary">&#9679;</span>
+              <span className="text-claude">&#9679;</span>
               儲存你的 Prompt 建構器設定
             </li>
             <li className="flex items-center gap-2">
-              <span className="text-primary">&#9679;</span>
+              <span className="text-claude">&#9679;</span>
               追蹤學習進度
             </li>
             <li className="flex items-center gap-2">
-              <span className="text-primary">&#9679;</span>
+              <span className="text-claude">&#9679;</span>
               存取限定學習資源
             </li>
           </ul>

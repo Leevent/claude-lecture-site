@@ -62,23 +62,29 @@ const comparisons: ComparisonItem[] = [
   },
 ];
 
-const toolInfo: Record<Tool, { name: string; color: string; bg: string; price: string }> = {
+const toolInfo: Record<Tool, { name: string; color: string; bg: string; scoreColor: string; scoreLightColor: string; price: string }> = {
   claude: {
     name: "Claude",
-    color: "text-violet-700",
-    bg: "bg-violet-100",
+    color: "text-claude",
+    bg: "bg-claude/10",
+    scoreColor: "bg-claude",
+    scoreLightColor: "bg-claude/20",
     price: "免費 / Pro $20 / Max $100-$200",
   },
   chatgpt: {
     name: "ChatGPT",
     color: "text-emerald-700",
     bg: "bg-emerald-100",
+    scoreColor: "bg-emerald-500",
+    scoreLightColor: "bg-emerald-200",
     price: "免費 / Plus $20 / Pro $200",
   },
   gemini: {
     name: "Gemini",
     color: "text-blue-700",
     bg: "bg-blue-100",
+    scoreColor: "bg-blue-500",
+    scoreLightColor: "bg-blue-200",
     price: "免費 / Advanced $20",
   },
 };
@@ -148,7 +154,7 @@ export default function ToolsPage() {
             <thead>
               <tr className="border-b border-card-border">
                 <th className="text-left p-4 font-semibold">能力面向</th>
-                <th className="p-4 font-semibold text-center text-violet-700">Claude</th>
+                <th className="p-4 font-semibold text-center text-claude">Claude</th>
                 <th className="p-4 font-semibold text-center text-emerald-700">ChatGPT</th>
                 <th className="p-4 font-semibold text-center text-blue-700">Gemini</th>
               </tr>
@@ -157,9 +163,9 @@ export default function ToolsPage() {
               {comparisons.map((item) => (
                 <tr key={item.category} className="border-b border-card-border last:border-0 hover:bg-background/50">
                   <td className="p-4 font-medium">{item.category}</td>
-                  <ScoreCell {...item.claude} color="violet" />
-                  <ScoreCell {...item.chatgpt} color="emerald" />
-                  <ScoreCell {...item.gemini} color="blue" />
+                  <ScoreCell {...item.claude} tool="claude" />
+                  <ScoreCell {...item.chatgpt} tool="chatgpt" />
+                  <ScoreCell {...item.gemini} tool="gemini" />
                 </tr>
               ))}
             </tbody>
@@ -197,7 +203,7 @@ export default function ToolsPage() {
       </div>
 
       {/* Key insight */}
-      <div className="p-6 bg-amber-50 rounded-2xl border border-amber-200">
+      <div className="p-6 bg-accent/5 rounded-2xl border border-accent/20">
         <h3 className="font-bold mb-2 flex items-center gap-2">
           <span>&#128161;</span> LINE 5000+ 人社群的共識
         </h3>
@@ -213,23 +219,12 @@ export default function ToolsPage() {
 function ScoreCell({
   score,
   note,
-  color,
+  tool,
 }: {
   score: number;
   note: string;
-  color: string;
+  tool: Tool;
 }) {
-  const colorMap: Record<string, string> = {
-    violet: "bg-violet-500",
-    emerald: "bg-emerald-500",
-    blue: "bg-blue-500",
-  };
-  const lightMap: Record<string, string> = {
-    violet: "bg-violet-200",
-    emerald: "bg-emerald-200",
-    blue: "bg-blue-200",
-  };
-
   return (
     <td className="p-4 text-center">
       <div className="flex justify-center gap-0.5 mb-1">
@@ -237,7 +232,7 @@ function ScoreCell({
           <div
             key={i}
             className={`w-2 h-2 rounded-full ${
-              i <= score ? colorMap[color] : lightMap[color]
+              i <= score ? toolInfo[tool].scoreColor : toolInfo[tool].scoreLightColor
             }`}
           />
         ))}

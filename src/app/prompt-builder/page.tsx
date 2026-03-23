@@ -125,7 +125,7 @@ export default function PromptBuilderPage() {
           <button
             key={preset.name}
             onClick={() => handlePreset(preset)}
-            className="px-3 py-1 text-sm rounded-full border border-card-border hover:border-primary hover:text-primary transition-colors"
+            className="px-3 py-1 text-sm rounded-full border border-card-border hover:border-claude hover:text-claude transition-colors"
           >
             {preset.name}
           </button>
@@ -147,7 +147,7 @@ export default function PromptBuilderPage() {
                 <div
                   key={i}
                   className={`w-2 h-2 rounded-full transition-colors ${
-                    i <= filledCount ? "bg-primary" : "bg-card-border"
+                    i <= filledCount ? "bg-claude" : "bg-card-border"
                   }`}
                 />
               ))}
@@ -166,7 +166,7 @@ export default function PromptBuilderPage() {
                 onChange={(e) => updateField(key, e.target.value)}
                 placeholder={placeholders[key]}
                 rows={key === "task" || key === "context" ? 3 : 2}
-                className="w-full px-4 py-3 rounded-xl border border-card-border bg-white text-sm focus:outline-none focus:ring-2 focus:ring-primary/30 focus:border-primary transition-all resize-none"
+                className="w-full px-4 py-3 rounded-xl border border-card-border bg-white text-sm focus:outline-none focus:ring-2 focus:ring-claude/30 focus:border-claude transition-all resize-none"
               />
             </div>
           ))}
@@ -184,7 +184,7 @@ export default function PromptBuilderPage() {
                   copied
                     ? "bg-green-100 text-green-700"
                     : filledCount > 0
-                    ? "bg-primary text-white hover:bg-primary-dark"
+                    ? "bg-claude text-white hover:bg-claude-light"
                     : "bg-gray-100 text-gray-400 cursor-not-allowed"
                 }`}
               >
@@ -211,23 +211,23 @@ export default function PromptBuilderPage() {
           </div>
 
           {/* Tips */}
-          <div className="mt-6 p-5 bg-primary/5 rounded-xl border border-primary/10">
+          <div className="mt-6 p-5 bg-accent/5 rounded-xl border border-accent/10">
             <h3 className="font-semibold text-sm mb-3">Prompt 小技巧</h3>
             <ul className="space-y-2 text-xs text-muted">
               <li className="flex items-start gap-2">
-                <span className="text-primary mt-0.5">&#9679;</span>
+                <span className="text-accent mt-0.5">&#9679;</span>
                 「反面約束」比正向鼓勵有效 &mdash; 告訴 Claude「不要做什麼」遵守率更高
               </li>
               <li className="flex items-start gap-2">
-                <span className="text-primary mt-0.5">&#9679;</span>
+                <span className="text-accent mt-0.5">&#9679;</span>
                 先要求列出 2-3 種方案，選定再執行，試錯時間減少一半
               </li>
               <li className="flex items-start gap-2">
-                <span className="text-primary mt-0.5">&#9679;</span>
+                <span className="text-accent mt-0.5">&#9679;</span>
                 避免用問句代替指令 &mdash; 「請幫我...」比「你可以幫我...嗎？」效果好
               </li>
               <li className="flex items-start gap-2">
-                <span className="text-primary mt-0.5">&#9679;</span>
+                <span className="text-accent mt-0.5">&#9679;</span>
                 單一任務完成就開新對話 &mdash; Context 越長 AI 越笨
               </li>
             </ul>

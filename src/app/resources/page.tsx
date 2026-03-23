@@ -115,7 +115,7 @@ export default function ResourcesPage() {
         {sections.map((section) => (
           <div key={section.title}>
             <h2 className="text-xl font-bold mb-4 flex items-center gap-2">
-              <span className="w-1.5 h-6 bg-primary rounded-full"></span>
+              <span className="w-1.5 h-6 bg-claude rounded-full"></span>
               {section.title}
             </h2>
             <div className="grid gap-3">
@@ -128,14 +128,14 @@ export default function ResourcesPage() {
       </div>
 
       {/* Next steps */}
-      <div className="mt-16 p-8 bg-gradient-to-br from-primary/5 to-primary-light/10 rounded-2xl border border-primary/10">
+      <div className="mt-16 p-8 bg-gradient-to-br from-accent/5 to-accent/10 rounded-2xl border border-accent/20">
         <h2 className="text-xl font-bold mb-3">下一步：B 班預告</h2>
         <p className="text-sm text-muted mb-4">
           A 班教你跟 Claude 溝通，B 班教你設計 Claude 的工作方式。
           Skills 一鍵執行、MCP 跨平台串接、Extended Thinking 深度思考。
         </p>
         <div className="flex items-center gap-4 text-sm">
-          <span className="px-3 py-1 bg-primary/10 text-primary rounded-full font-medium">
+          <span className="px-3 py-1 bg-accent/10 text-accent rounded-full font-medium">
             2026/4/9（三）
           </span>
           <span className="text-muted">3 小時 &middot; $500</span>
@@ -167,7 +167,7 @@ function ResourceCard({
     <Tag
       href={url}
       {...externalProps}
-      className="group flex items-start gap-4 p-4 bg-white rounded-xl border border-card-border hover:border-primary/30 hover:shadow-sm transition-all"
+      className="group flex items-start gap-4 p-4 bg-white rounded-xl border border-card-border hover:border-accent/30 hover:shadow-sm transition-all"
     >
       <div className="flex-shrink-0 mt-1">
         {template ? (
@@ -179,12 +179,12 @@ function ResourceCard({
         )}
       </div>
       <div className="flex-1 min-w-0">
-        <h3 className="font-medium text-sm group-hover:text-primary transition-colors">
+        <h3 className="font-medium text-sm group-hover:text-claude transition-colors">
           {name}
         </h3>
         <p className="text-xs text-muted mt-0.5">{desc}</p>
       </div>
-      <span className="text-muted group-hover:text-primary transition-colors flex-shrink-0">
+      <span className="text-muted group-hover:text-claude transition-colors flex-shrink-0">
         &#8594;
       </span>
     </Tag>

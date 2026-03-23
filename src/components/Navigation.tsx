@@ -16,11 +16,11 @@ export default function Navigation() {
   const [mobileOpen, setMobileOpen] = useState(false);
 
   return (
-    <nav className="sticky top-0 z-50 bg-white/80 backdrop-blur-md border-b border-card-border">
+    <nav className="sticky top-0 z-50 bg-white/90 backdrop-blur-md border-b border-card-border">
       <div className="max-w-6xl mx-auto px-4 sm:px-6">
         <div className="flex items-center justify-between h-16">
           <Link href="/" className="flex items-center gap-2 font-bold text-lg text-primary-dark">
-            <span className="text-2xl">&#9670;</span>
+            <span className="text-2xl text-claude">&#9670;</span>
             <span>Claude 應用講座</span>
           </Link>
 
@@ -33,7 +33,7 @@ export default function Navigation() {
                 className={`px-4 py-2 rounded-lg text-sm font-medium transition-colors ${
                   pathname === item.href
                     ? "bg-primary text-white"
-                    : "text-foreground/70 hover:bg-primary/10 hover:text-primary"
+                    : "text-foreground/70 hover:bg-accent/10 hover:text-accent"
                 }`}
               >
                 {item.label}
@@ -41,7 +41,7 @@ export default function Navigation() {
             ))}
             <Link
               href="/login"
-              className="ml-2 px-4 py-2 rounded-lg text-sm font-medium border border-primary/30 text-primary hover:bg-primary hover:text-white transition-colors"
+              className="ml-2 px-4 py-2 rounded-lg text-sm font-medium border border-accent/40 text-accent hover:bg-accent hover:text-white transition-colors"
             >
               登入
             </Link>
@@ -50,7 +50,7 @@ export default function Navigation() {
           {/* Mobile menu button */}
           <button
             onClick={() => setMobileOpen(!mobileOpen)}
-            className="md:hidden p-2 rounded-lg hover:bg-primary/10"
+            className="md:hidden p-2 rounded-lg hover:bg-accent/10"
             aria-label="Toggle menu"
           >
             <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -74,7 +74,7 @@ export default function Navigation() {
                 className={`block px-4 py-3 rounded-lg text-sm font-medium ${
                   pathname === item.href
                     ? "bg-primary text-white"
-                    : "text-foreground/70 hover:bg-primary/10"
+                    : "text-foreground/70 hover:bg-accent/10"
                 }`}
               >
                 {item.label}

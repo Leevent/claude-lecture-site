@@ -1,15 +1,22 @@
 @import "tailwindcss";
 
 :root {
-  --background: #fafaf9;
-  --foreground: #1c1917;
-  --primary: #7c3aed;
-  --primary-light: #a78bfa;
-  --primary-dark: #5b21b6;
-  --accent: #f59e0b;
+  --background: #fafafa;
+  --foreground: #1a1a1a;
+  /* Brand CIS: Black + Gold + Blue + White + Red + Claude terracotta */
+  --primary: #1a1a1a;
+  --primary-light: #333333;
+  --primary-dark: #000000;
+  --accent: #c5a44e;
+  --accent-light: #d4b96a;
+  --blue: #2563eb;
+  --blue-light: #3b82f6;
+  --red: #dc2626;
+  --claude: #d97757;
+  --claude-light: #e8946f;
   --card-bg: #ffffff;
-  --card-border: #e7e5e4;
-  --muted: #78716c;
+  --card-border: #e5e5e5;
+  --muted: #737373;
 }
 
 @theme inline {
@@ -19,6 +26,12 @@
   --color-primary-light: var(--primary-light);
   --color-primary-dark: var(--primary-dark);
   --color-accent: var(--accent);
+  --color-accent-light: var(--accent-light);
+  --color-blue: var(--blue);
+  --color-blue-light: var(--blue-light);
+  --color-red: var(--red);
+  --color-claude: var(--claude);
+  --color-claude-light: var(--claude-light);
   --color-card-bg: var(--card-bg);
   --color-card-border: var(--card-border);
   --color-muted: var(--muted);
@@ -32,12 +45,10 @@ body {
   font-family: var(--font-sans), "Noto Sans TC", sans-serif;
 }
 
-/* Smooth scrolling */
 html {
   scroll-behavior: smooth;
 }
 
-/* Custom scrollbar */
 ::-webkit-scrollbar {
   width: 6px;
 }
@@ -45,6 +56,6 @@ html {
   background: transparent;
 }
 ::-webkit-scrollbar-thumb {
-  background: var(--primary-light);
+  background: var(--accent);
   border-radius: 3px;
 }
