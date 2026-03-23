@@ -1,0 +1,261 @@
+"use client";
+
+import { useState, useCallback } from "react";
+
+interface PromptFields {
+  role: string;
+  task: string;
+  context: string;
+  format: string;
+  quality: string;
+}
+
+const placeholders: PromptFields = {
+  role: "例：你是一位有 10 年經驗的社群行銷專家",
+  task: "例：幫我撰寫一篇 Threads 貼文，推廣我們的新課程",
+  context: "例：課程主題是 Claude AI 應用，目標受眾是 25-40 歲上班族，品牌調性輕鬆專業",
+  format: "例：300 字以內、包含一個 CTA、用條列式重點、附上 3 個 hashtag",
+  quality: "例：語氣親切但專業、避免過度銷售感、需要包含具體數據或案例",
+};
+
+const labels: Record<keyof PromptFields, { label: string; tip: string }> = {
+  role: {
+    label: "角色 (Role)",
+    tip: "告訴 Claude 用什麼身份回答你",
+  },
+  task: {
+    label: "任務 (Task)",
+    tip: "你需要 Claude 做什麼？越具體越好",
+  },
+  context: {
+    label: "背景 (Context)",
+    tip: "提供相關的背景資訊、限制條件",
+  },
+  format: {
+    label: "格式 (Format)",
+    tip: "你想要什麼樣的輸出格式",
+  },
+  quality: {
+    label: "品質標準 (Quality)",
+    tip: "什麼樣的結果才算好？",
+  },
+};
+
+const examplePresets = [
+  {
+    name: "社群貼文",
+    fields: {
+      role: "你是一位擅長台灣市場的社群行銷專家，風格輕鬆但專業",
+      task: "撰寫一篇 Threads 貼文，分享 AI 工具使用心得",
+      context: "目標受眾是 25-40 歲科技業上班族，對 AI 有興趣但還沒深入使用",
+      format: "300 字以內、分段清晰、結尾附一個互動問題和 3 個 hashtag",
+      quality: "語氣像朋友分享經驗、避免術語堆砌、需包含一個具體使用場景",
+    },
+  },
+  {
+    name: "會議紀錄",
+    fields: {
+      role: "你是一位專業的專案管理助理",
+      task: "將以下會議逐字稿整理成結構化的會議紀錄",
+      context: "這是行銷部門的週會，討論了下季度的推廣計畫",
+      format: "包含：決議事項（表格）、行動項目（負責人+截止日）、未決議題、下次會議提醒",
+      quality: "確保每個行動項目都有明確的負責人和截止日期，模糊的討論用「待確認」標註",
+    },
+  },
+  {
+    name: "品牌文案",
+    fields: {
+      role: "你是一位品牌策略顧問，專精 B2B 科技產品行銷",
+      task: "為我們的 AI 教育課程撰寫官網的價值主張區塊",
+      context: "課程品牌定位是「讓非技術人員也能掌握 AI 生產力」，競品主打技術深度",
+      format: "一句主標題（15 字內）+ 三段特色描述（各 50 字）+ 一個 CTA 按鈕文字",
+      quality: "強調「實用 > 技術」，避免誇大承諾，語氣自信但不傲慢",
+    },
+  },
+];
+
+export default function PromptBuilderPage() {
+  const [fields, setFields] = useState<PromptFields>({
+    role: "",
+    task: "",
+    context: "",
+    format: "",
+    quality: "",
+  });
+  const [copied, setCopied] = useState(false);
+
+  const updateField = useCallback(
+    (key: keyof PromptFields, value: string) => {
+      setFields((prev) => ({ ...prev, [key]: value }));
+    },
+    []
+  );
+
+  const generatedPrompt = buildPrompt(fields);
+  const filledCount = Object.values(fields).filter((v) => v.trim()).length;
+
+  const handleCopy = async () => {
+    await navigator.clipboard.writeText(generatedPrompt);
+    setCopied(true);
+    setTimeout(() => setCopied(false), 2000);
+  };
+
+  const handlePreset = (preset: (typeof examplePresets)[0]) => {
+    setFields(preset.fields);
+  };
+
+  const handleClear = () => {
+    setFields({ role: "", task: "", context: "", format: "", quality: "" });
+  };
+
+  return (
+    <div className="max-w-6xl mx-auto px-4 sm:px-6 py-12">
+      <div className="mb-8">
+        <h1 className="text-3xl font-bold mb-2">Prompt 建構器</h1>
+        <p className="text-muted">
+          用五元素框架（Role / Task / Context / Format / Quality）組合出專業 Prompt。
+          填完直接複製貼到 Claude。
+        </p>
+      </div>
+
+      {/* Presets */}
+      <div className="flex flex-wrap gap-2 mb-8">
+        <span className="text-sm text-muted py-1">快速範例：</span>
+        {examplePresets.map((preset) => (
+          <button
+            key={preset.name}
+            onClick={() => handlePreset(preset)}
+            className="px-3 py-1 text-sm rounded-full border border-card-border hover:border-primary hover:text-primary transition-colors"
+          >
+            {preset.name}
+          </button>
+        ))}
+        <button
+          onClick={handleClear}
+          className="px-3 py-1 text-sm rounded-full border border-card-border hover:border-red-300 hover:text-red-500 transition-colors ml-auto"
+        >
+          清除全部
+        </button>
+      </div>
+
+      <div className="grid lg:grid-cols-2 gap-8">
+        {/* Input */}
+        <div className="space-y-5">
+          <div className="flex items-center gap-2 mb-2">
+            <div className="flex gap-1">
+              {[1, 2, 3, 4, 5].map((i) => (
+                <div
+                  key={i}
+                  className={`w-2 h-2 rounded-full transition-colors ${
+                    i <= filledCount ? "bg-primary" : "bg-card-border"
+                  }`}
+                />
+              ))}
+            </div>
+            <span className="text-xs text-muted">{filledCount}/5 已填寫</span>
+          </div>
+
+          {(Object.keys(labels) as Array<keyof PromptFields>).map((key) => (
+            <div key={key}>
+              <label className="block text-sm font-semibold mb-1">
+                {labels[key].label}
+              </label>
+              <p className="text-xs text-muted mb-2">{labels[key].tip}</p>
+              <textarea
+                value={fields[key]}
+                onChange={(e) => updateField(key, e.target.value)}
+                placeholder={placeholders[key]}
+                rows={key === "task" || key === "context" ? 3 : 2}
+                className="w-full px-4 py-3 rounded-xl border border-card-border bg-white text-sm focus:outline-none focus:ring-2 focus:ring-primary/30 focus:border-primary transition-all resize-none"
+              />
+            </div>
+          ))}
+        </div>
+
+        {/* Preview */}
+        <div className="lg:sticky lg:top-24 lg:self-start">
+          <div className="bg-white rounded-2xl border border-card-border p-6">
+            <div className="flex items-center justify-between mb-4">
+              <h2 className="font-bold text-lg">產生的 Prompt</h2>
+              <button
+                onClick={handleCopy}
+                disabled={filledCount === 0}
+                className={`px-4 py-2 rounded-lg text-sm font-medium transition-all ${
+                  copied
+                    ? "bg-green-100 text-green-700"
+                    : filledCount > 0
+                    ? "bg-primary text-white hover:bg-primary-dark"
+                    : "bg-gray-100 text-gray-400 cursor-not-allowed"
+                }`}
+              >
+                {copied ? "&#10003; 已複製" : "複製 Prompt"}
+              </button>
+            </div>
+            <div className="bg-background rounded-xl p-4 min-h-[300px]">
+              {filledCount === 0 ? (
+                <p className="text-muted text-sm italic">
+                  開始填寫左邊的欄位，Prompt 會即時出現在這裡...
+                </p>
+              ) : (
+                <pre className="whitespace-pre-wrap text-sm font-sans leading-relaxed">
+                  {generatedPrompt}
+                </pre>
+              )}
+            </div>
+            {filledCount > 0 && filledCount < 5 && (
+              <p className="text-xs text-amber-600 mt-3 flex items-center gap-1">
+                <span>&#9888;</span>
+                還有 {5 - filledCount} 個欄位未填，填越完整效果越好
+              </p>
+            )}
+          </div>
+
+          {/* Tips */}
+          <div className="mt-6 p-5 bg-primary/5 rounded-xl border border-primary/10">
+            <h3 className="font-semibold text-sm mb-3">Prompt 小技巧</h3>
+            <ul className="space-y-2 text-xs text-muted">
+              <li className="flex items-start gap-2">
+                <span className="text-primary mt-0.5">&#9679;</span>
+                「反面約束」比正向鼓勵有效 &mdash; 告訴 Claude「不要做什麼」遵守率更高
+              </li>
+              <li className="flex items-start gap-2">
+                <span className="text-primary mt-0.5">&#9679;</span>
+                先要求列出 2-3 種方案，選定再執行，試錯時間減少一半
+              </li>
+              <li className="flex items-start gap-2">
+                <span className="text-primary mt-0.5">&#9679;</span>
+                避免用問句代替指令 &mdash; 「請幫我...」比「你可以幫我...嗎？」效果好
+              </li>
+              <li className="flex items-start gap-2">
+                <span className="text-primary mt-0.5">&#9679;</span>
+                單一任務完成就開新對話 &mdash; Context 越長 AI 越笨
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+}
+
+function buildPrompt(fields: PromptFields): string {
+  const parts: string[] = [];
+
+  if (fields.role.trim()) {
+    parts.push(`## 角色\n${fields.role.trim()}`);
+  }
+  if (fields.task.trim()) {
+    parts.push(`## 任務\n${fields.task.trim()}`);
+  }
+  if (fields.context.trim()) {
+    parts.push(`## 背景資訊\n${fields.context.trim()}`);
+  }
+  if (fields.format.trim()) {
+    parts.push(`## 輸出格式\n${fields.format.trim()}`);
+  }
+  if (fields.quality.trim()) {
+    parts.push(`## 品質要求\n${fields.quality.trim()}`);
+  }
+
+  return parts.join("\n\n");
+}
