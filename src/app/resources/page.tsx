@@ -21,8 +21,8 @@ const sections = [
       },
       {
         name: "Claude Co-work 文件",
-        url: "https://support.anthropic.com/en/articles/10140282-what-is-computer-use-and-how-do-i-get-started",
-        desc: "Co-work（Computer Use）功能說明",
+        url: "https://support.claude.com/en/articles/13345190-get-started-with-cowork",
+        desc: "Co-work 入門指南（官方最新版）",
       },
     ],
   },
@@ -48,18 +48,13 @@ const sections = [
     items: [
       {
         name: "簡立峰：善用 AI 成為 1% 的超級人才",
-        url: "https://www.youtube.com/watch?v=example1",
+        url: "https://youtu.be/hC-jRG2SrEE",
         desc: "前 Google 台灣董事總經理的 AI 應用四層次：問 → 用 → 管 → 造",
       },
       {
-        name: "Every Claude Code Concept Explained for Normal People",
-        url: "https://www.youtube.com/watch?v=example2",
-        desc: "好 Prompt vs 壞 Prompt 對比範例",
-      },
-      {
-        name: "What Claude Cowork Actually Does",
-        url: "https://www.youtube.com/watch?v=example3",
-        desc: "Tiago Forte 對 Co-work 的定位分析",
+        name: "PAPAYA 電腦教室：Claude Code 保姆級教學",
+        url: "https://youtu.be/2pM-7fBXc_M",
+        desc: "從零開始體驗 Vibe Coding，動動嘴就能做出 Anything",
       },
     ],
   },
@@ -95,8 +90,8 @@ const sections = [
         desc: "758 名顧問實驗，有結構化流程的使用者表現高出 19%",
       },
       {
-        name: "Andrew Ng：Agentic Workflows",
-        url: "https://www.deeplearning.ai/the-batch/agentic-design-patterns-part-1-reflection/",
+        name: "Andrew Ng：Agentic Design Patterns",
+        url: "https://www.deeplearning.ai/the-batch/how-agents-can-improve-llm-performance/",
         desc: "單一 prompt 48% 成功率 → 設計工作流後提升到 95%",
       },
     ],
@@ -127,20 +122,6 @@ export default function ResourcesPage() {
         ))}
       </div>
 
-      {/* Next steps */}
-      <div className="mt-16 p-8 bg-gradient-to-br from-accent/5 to-accent/10 rounded-2xl border border-accent/20">
-        <h2 className="text-xl font-bold mb-3">下一步：B 班預告</h2>
-        <p className="text-sm text-muted mb-4">
-          A 班教你跟 Claude 溝通，B 班教你設計 Claude 的工作方式。
-          Skills 一鍵執行、MCP 跨平台串接、Extended Thinking 深度思考。
-        </p>
-        <div className="flex items-center gap-4 text-sm">
-          <span className="px-3 py-1 bg-accent/10 text-accent rounded-full font-medium">
-            2026/4/9（三）
-          </span>
-          <span className="text-muted">3 小時 &middot; $500</span>
-        </div>
-      </div>
     </div>
   );
 }
