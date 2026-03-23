@@ -7,6 +7,7 @@ const courseOutline = [
     time: "20 min",
     desc: "Claude vs ChatGPT vs Gemini 決策框架、功能地圖、資安說明",
     icon: "🧭",
+    href: "/course/part-1",
   },
   {
     part: "Part 2",
@@ -14,6 +15,7 @@ const courseOutline = [
     time: "40 min",
     desc: "五元素溝通框架、實戰練習、對話迭代技巧",
     icon: "💬",
+    href: "/course/part-2",
   },
   {
     part: "Part 3",
@@ -21,6 +23,7 @@ const courseOutline = [
     time: "35 min",
     desc: "Projects 入職法、Artifacts 交付物、三種核心文件模板",
     icon: "📁",
+    href: "/course/part-3",
   },
   {
     part: "Part 4",
@@ -28,6 +31,7 @@ const courseOutline = [
     time: "25 min",
     desc: "不寫程式的自動化、兩個 Live Demo 場景、AI 三層能力模型",
     icon: "🤖",
+    href: "/course/part-4",
   },
   {
     part: "Part 5",
@@ -35,6 +39,7 @@ const courseOutline = [
     time: "10 min",
     desc: "開放提問、課後作業、B 班 & 隱藏班預告",
     icon: "🚀",
+    href: "/course/part-5",
   },
 ];
 
@@ -135,9 +140,10 @@ export default function Home() {
         </p>
         <div className="space-y-4">
           {courseOutline.map((item) => (
-            <div
+            <Link
               key={item.part}
-              className="bg-white rounded-2xl border border-card-border p-6 hover:shadow-md hover:border-accent/30 transition-all"
+              href={item.href}
+              className="group block bg-white rounded-2xl border border-card-border p-6 hover:shadow-md hover:border-accent/30 transition-all"
             >
               <div className="flex items-start gap-4">
                 <div className="text-3xl flex-shrink-0">{item.icon}</div>
@@ -148,11 +154,16 @@ export default function Home() {
                     </span>
                     <span className="text-xs text-muted">{item.time}</span>
                   </div>
-                  <h3 className="font-bold text-lg">{item.title}</h3>
+                  <h3 className="font-bold text-lg group-hover:text-claude transition-colors">
+                    {item.title}
+                  </h3>
                   <p className="text-sm text-muted mt-1">{item.desc}</p>
                 </div>
+                <span className="text-muted group-hover:text-claude transition-colors flex-shrink-0 mt-2">
+                  &#8594;
+                </span>
               </div>
-            </div>
+            </Link>
           ))}
         </div>
       </section>
