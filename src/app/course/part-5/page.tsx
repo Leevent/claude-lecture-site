@@ -1,6 +1,38 @@
+"use client";
+
 import Link from "next/link";
+import { useState } from "react";
+
+const faqs = [
+  {
+    q: "費用多少、多快燒完、有沒有免費版可以先試",
+    a: "免費版可以體驗基本功能，Pro $20/月 省著用 Sonnet 足夠日常工作。Opus 留給重要任務，不會一下就燒完。",
+  },
+  {
+    q: "Windows 能不能用 Co-work？",
+    a: "目前 Co-work 僅支援 macOS + Pro/Team 以上訂閱。Windows 用戶可以先用 Projects + Artifacts 建立工作流，等官方支援後再升級。",
+  },
+  {
+    q: "公司資料上雲安不安全",
+    a: "Claude 不會用對話資料訓練模型（與 ChatGPT 不同）。Pro 版有更嚴格的資料政策。但建議敏感資料仍應脫敏後再給 AI。",
+  },
+  {
+    q: "Claude 和 ChatGPT 到底哪個比較好用",
+    a: "不是比誰強，是比誰適合。長文/分析/指令遵從 → Claude；即時搜尋/圖片生成 → ChatGPT；Google 生態 → Gemini。96.8% 的人同時用多個工具。",
+  },
+  {
+    q: "Project 的 Memory / Instructions / Files 各放什麼",
+    a: "Instructions 放系統指令和品牌語氣；Files 放參考資料（PDF、文件）；Memory 讓 Claude 自動記住對話中的重要資訊。",
+  },
+  {
+    q: "Co-work 和 Claude Code 有什麼不一樣",
+    a: "Co-work = 不用寫程式的桌面助手，操作瀏覽器和檔案；Claude Code = 開發者的終端機工具，用來建造軟體。非技術背景先從 Co-work 開始。",
+  },
+];
 
 export default function Part5Page() {
+  const [openIndex, setOpenIndex] = useState<number | null>(null);
+
   return (
     <div className="max-w-4xl mx-auto px-4 sm:px-6 py-12">
       <Link
@@ -34,25 +66,45 @@ export default function Part5Page() {
           <p className="text-sm text-muted mb-4">
             課堂中的任何問題，都可以在這個環節提出來討論。
           </p>
-          <p className="text-sm font-medium mb-3">&#128172; 最可能被問到的 6 題</p>
+          <p className="text-sm font-medium mb-3">
+            &#128172; 最可能被問到的 6 題
+          </p>
           <div className="space-y-2">
-            {[
-              "費用多少、多快燒完、有沒有免費版可以先試",
-              "Windows 能不能用 Co-work？（目前僅 macOS）",
-              "公司資料上雲安不安全",
-              "Claude 和 ChatGPT 到底哪個比較好用",
-              "Project 的 Memory / Instructions / Files 各放什麼",
-              "Co-work 和 Claude Code 有什麼不一樣",
-            ].map((q, i) => (
-              <div
+            {faqs.map((faq, i) => (
+              <button
                 key={i}
-                className="flex items-start gap-2 p-3 bg-background rounded-xl"
+                onClick={() => setOpenIndex(openIndex === i ? null : i)}
+                className="w-full text-left"
               >
-                <span className="text-accent font-bold text-sm flex-shrink-0">
-                  Q{i + 1}
-                </span>
-                <p className="text-sm">{q}</p>
-              </div>
+                <div
+                  className={`rounded-xl border transition-all ${
+                    openIndex === i
+                      ? "border-claude/30 bg-claude/5 shadow-sm"
+                      : "border-card-border bg-background hover:border-accent/30"
+                  }`}
+                >
+                  <div className="flex items-center gap-2 p-3">
+                    <span className="text-accent font-bold text-sm flex-shrink-0">
+                      Q{i + 1}
+                    </span>
+                    <p className="text-sm font-medium flex-1">{faq.q}</p>
+                    <span
+                      className={`text-muted transition-transform flex-shrink-0 ${
+                        openIndex === i ? "rotate-180" : ""
+                      }`}
+                    >
+                      &#9660;
+                    </span>
+                  </div>
+                  {openIndex === i && (
+                    <div className="px-3 pb-3 pt-0">
+                      <div className="border-t border-card-border pt-3">
+                        <p className="text-sm text-foreground/70">{faq.a}</p>
+                      </div>
+                    </div>
+                  )}
+                </div>
+              </button>
             ))}
           </div>
         </div>
@@ -125,7 +177,9 @@ export default function Part5Page() {
                 &#128270; Research Mode
               </p>
               <p className="text-xs text-muted">
-                丟一個問題，Claude 花 5-45 分鐘搜尋上百來源、交叉比對、產出有引用的研究報告（Pro 以上功能）
+                丟一個問題，Claude 花 5-45
+                分鐘搜尋上百來源、交叉比對、產出有引用的研究報告（Pro
+                以上功能）
               </p>
             </div>
             <div className="p-4 bg-accent/5 border border-accent/20 rounded-xl">
@@ -133,10 +187,12 @@ export default function Part5Page() {
                 &#9889; Skills + MCP（B 班內容）
               </p>
               <p className="text-xs text-muted">
-                Skill：同一件事手動做第三次，就值得做成 Skill — 一鍵執行重複流程
+                Skill：同一件事手動做第三次，就值得做成 Skill —
+                一鍵執行重複流程
               </p>
               <p className="text-xs text-muted mt-1">
-                MCP = 通用遙控器，讓 Claude 一次連接所有 App（Connectors 就是 MCP 的使用者友善版）
+                MCP = 通用遙控器，讓 Claude 一次連接所有 App（Connectors 就是
+                MCP 的使用者友善版）
               </p>
             </div>
             <div className="p-4 bg-primary/5 border border-primary/20 rounded-xl">
@@ -183,7 +239,7 @@ export default function Part5Page() {
 
           <div className="bg-primary/5 border-l-4 border-primary rounded-r-xl p-4">
             <p className="text-sm italic text-foreground/70">
-              「A 班教你跟 Claude 溝通，B 班教你設計 Claude 的工作方式，隱藏班教你讓 Claude 幫你寫程式」
+              「A 班教你跟 Claude 溝通，B 班教你設計 Claude 的工作方式」
             </p>
           </div>
         </div>
