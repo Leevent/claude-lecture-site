@@ -16,15 +16,17 @@ const sections = [
       "上傳參考資料（PDF、文件、圖片）",
     ],
     demo: "Live Demo：建立一個「社群小編 Project」",
-    tip: "從 ChatGPT 搬家小技巧：Anthropic 提供記憶匯入工具，整個流程不到 60 秒",
+    tip: "從 ChatGPT 搬家小技巧：Anthropic 提供匯出指令＋匯入工具，在 ChatGPT 生成記憶代碼 → 貼入 Claude 完成遷移，整個流程不到 60 秒",
+    tipLink: "https://support.claude.com/zh-TW/articles/12123587",
   },
   {
     id: "3-2",
     title: "Artifacts = Claude 的交付物",
     points: [
-      "什麼時候會觸發 Artifacts — 程式碼、文件、圖表的產出",
+      "Artifacts 的用途非常多元：程式碼、文件、圖表、互動網頁、簡報、流程圖...",
+      "什麼時候會觸發 Artifacts — 當 Claude 判斷產出需要獨立呈現時自動產生",
       "Artifacts 的迭代功能 — 不滿意可以直接要求修改特定部分",
-      "實用案例：用 Artifacts 產出一個互動圖表",
+      "與自動化的關係：Artifacts 可以產出可執行的工具（計算機、表單、儀表板），搭配 Projects 就是你的專屬工作台",
     ],
     demo: "Live Demo：即時產出互動圖表",
   },
@@ -168,6 +170,16 @@ export default function Part3Page() {
                 <p className="text-sm text-green-700">
                   &#128161; {s.tip}
                 </p>
+                {s.tipLink && (
+                  <a
+                    href={s.tipLink}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="inline-block mt-2 text-xs text-green-600 underline hover:text-green-800"
+                  >
+                    查看官方教學 &#8599;
+                  </a>
+                )}
               </div>
             )}
 

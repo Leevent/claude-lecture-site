@@ -53,7 +53,7 @@ const sections = [
         respondTo: "學員品牌套版需求",
       },
     ],
-    note: "現場帶著做，不是只看投影片",
+    note: "",
   },
   {
     id: "2-4",
@@ -66,7 +66,7 @@ const sections = [
     ],
     stat: "Andrew Ng 發現：單一 prompt 成功率 48% → 設計「寫 → 執行 → 修正」工作流後跳到 95%",
     quote:
-      "「他可能幫你把程式碼建起來只要十分鐘，但流程沒整理好要調整成自己要的可能 10 小時」",
+      "「他給你一段文字可能只要三秒鐘，但你可能要花 30 分鐘思考+修改」",
   },
 ];
 
@@ -206,11 +206,11 @@ export default function Part2Page() {
                     </div>
                   </div>
                 ))}
-                {s.note && (
+                {s.note ? (
                   <p className="text-xs text-muted text-center mt-2">
                     &#9997; {s.note}
                   </p>
-                )}
+                ) : null}
               </div>
             )}
 
@@ -233,7 +233,7 @@ export default function Part2Page() {
                 <p className="text-sm italic text-foreground/70">
                   {s.quote}
                 </p>
-                <p className="text-xs text-muted mt-1">— LINE 群資深用戶</p>
+                <p className="text-xs text-muted mt-1">— 課堂金句</p>
               </div>
             )}
           </div>
