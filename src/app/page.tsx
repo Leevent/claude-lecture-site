@@ -52,7 +52,7 @@ const features = [
   },
   {
     title: "模板庫",
-    desc: "7 個可直接複製的 Project 模板",
+    desc: "10 個可直接複製的 Project 模板",
     href: "/templates",
     color: "from-accent to-accent-light",
   },

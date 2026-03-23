@@ -10,6 +10,35 @@ interface PromptFields {
   quality: string;
 }
 
+interface AdvancedOptions {
+  cot: boolean;
+  fewShotEnabled: boolean;
+  fewShotExamples: { input: string; output: string }[];
+  temperature: "" | "precise" | "balanced" | "creative";
+}
+
+const temperatureOptions = [
+  { value: "" as const, label: "不指定", desc: "" },
+  {
+    value: "precise" as const,
+    label: "精準模式",
+    desc: "分類、擷取、事實查核",
+    prompt: "請用最確定、最精準的方式回答，避免推測或創造性發揮。",
+  },
+  {
+    value: "balanced" as const,
+    label: "平衡模式",
+    desc: "一般任務、商務溝通",
+    prompt: "請在準確性和自然表達之間取得平衡。",
+  },
+  {
+    value: "creative" as const,
+    label: "創意模式",
+    desc: "文案發想、腦力激盪",
+    prompt: "請發揮創意，給出多元、新穎的想法，不需要過度保守。",
+  },
+];
+
 const placeholders: PromptFields = {
   role: "例：你是一位有 10 年經驗的社群行銷專家",
   task: "例：幫我撰寫一篇 Threads 貼文，推廣我們的新課程",
@@ -82,6 +111,13 @@ export default function PromptBuilderPage() {
     format: "",
     quality: "",
   });
+  const [advanced, setAdvanced] = useState<AdvancedOptions>({
+    cot: false,
+    fewShotEnabled: false,
+    fewShotExamples: [{ input: "", output: "" }],
+    temperature: "",
+  });
+  const [showAdvanced, setShowAdvanced] = useState(false);
   const [copied, setCopied] = useState(false);
 
   const updateField = useCallback(
@@ -91,7 +127,32 @@ export default function PromptBuilderPage() {
     []
   );
 
-  const generatedPrompt = buildPrompt(fields);
+  const updateFewShot = useCallback(
+    (index: number, field: "input" | "output", value: string) => {
+      setAdvanced((prev) => {
+        const examples = [...prev.fewShotExamples];
+        examples[index] = { ...examples[index], [field]: value };
+        return { ...prev, fewShotExamples: examples };
+      });
+    },
+    []
+  );
+
+  const addFewShot = useCallback(() => {
+    setAdvanced((prev) => ({
+      ...prev,
+      fewShotExamples: [...prev.fewShotExamples, { input: "", output: "" }],
+    }));
+  }, []);
+
+  const removeFewShot = useCallback((index: number) => {
+    setAdvanced((prev) => ({
+      ...prev,
+      fewShotExamples: prev.fewShotExamples.filter((_, i) => i !== index),
+    }));
+  }, []);
+
+  const generatedPrompt = buildPrompt(fields, advanced);
   const filledCount = Object.values(fields).filter((v) => v.trim()).length;
 
   const handleCopy = async () => {
@@ -106,6 +167,12 @@ export default function PromptBuilderPage() {
 
   const handleClear = () => {
     setFields({ role: "", task: "", context: "", format: "", quality: "" });
+    setAdvanced({
+      cot: false,
+      fewShotEnabled: false,
+      fewShotExamples: [{ input: "", output: "" }],
+      temperature: "",
+    });
   };
 
   return (
@@ -170,6 +237,132 @@ export default function PromptBuilderPage() {
               />
             </div>
           ))}
+
+          {/* Advanced techniques panel */}
+          <div className="border border-card-border rounded-xl overflow-hidden">
+            <button
+              onClick={() => setShowAdvanced(!showAdvanced)}
+              className="w-full flex items-center justify-between px-4 py-3 bg-white hover:bg-gray-50 transition-colors text-sm font-semibold"
+            >
+              <span>
+                {"\u2699\uFE0F"} 進階技巧
+                {(advanced.cot || advanced.fewShotEnabled || advanced.temperature) && (
+                  <span className="ml-2 text-xs font-normal text-claude">已啟用</span>
+                )}
+              </span>
+              <span className={`transition-transform ${showAdvanced ? "rotate-180" : ""}`}>
+                {"\u25BC"}
+              </span>
+            </button>
+            {showAdvanced && (
+              <div className="px-4 py-4 space-y-5 bg-white border-t border-card-border">
+                {/* CoT toggle */}
+                <label className="flex items-start gap-3 cursor-pointer">
+                  <input
+                    type="checkbox"
+                    checked={advanced.cot}
+                    onChange={(e) => setAdvanced((prev) => ({ ...prev, cot: e.target.checked }))}
+                    className="mt-0.5 w-4 h-4 rounded accent-claude"
+                  />
+                  <div>
+                    <span className="text-sm font-semibold">
+                      {"\uD83E\uDDE0"} 逐步推理 (Chain of Thought)
+                    </span>
+                    <p className="text-xs text-muted mt-0.5">
+                      讓 Claude 先列出思考步驟再給結論，精確率可從 72% 提升到 95%
+                    </p>
+                  </div>
+                </label>
+
+                {/* Few-shot toggle + examples */}
+                <div>
+                  <label className="flex items-start gap-3 cursor-pointer">
+                    <input
+                      type="checkbox"
+                      checked={advanced.fewShotEnabled}
+                      onChange={(e) =>
+                        setAdvanced((prev) => ({ ...prev, fewShotEnabled: e.target.checked }))
+                      }
+                      className="mt-0.5 w-4 h-4 rounded accent-claude"
+                    />
+                    <div>
+                      <span className="text-sm font-semibold">
+                        {"\uD83D\uDCDD"} 範例學習 (Few-shot)
+                      </span>
+                      <p className="text-xs text-muted mt-0.5">
+                        提供 2-3 組「輸入 → 輸出」範例，讓 Claude 學會你要的格式
+                      </p>
+                    </div>
+                  </label>
+                  {advanced.fewShotEnabled && (
+                    <div className="mt-3 ml-7 space-y-3">
+                      {advanced.fewShotExamples.map((ex, i) => (
+                        <div key={i} className="flex gap-2 items-start">
+                          <div className="flex-1 space-y-1.5">
+                            <input
+                              value={ex.input}
+                              onChange={(e) => updateFewShot(i, "input", e.target.value)}
+                              placeholder={`範例 ${i + 1} 輸入`}
+                              className="w-full px-3 py-2 rounded-lg border border-card-border bg-white text-xs focus:outline-none focus:ring-2 focus:ring-claude/30 focus:border-claude"
+                            />
+                            <input
+                              value={ex.output}
+                              onChange={(e) => updateFewShot(i, "output", e.target.value)}
+                              placeholder={`範例 ${i + 1} 期望輸出`}
+                              className="w-full px-3 py-2 rounded-lg border border-card-border bg-white text-xs focus:outline-none focus:ring-2 focus:ring-claude/30 focus:border-claude"
+                            />
+                          </div>
+                          {advanced.fewShotExamples.length > 1 && (
+                            <button
+                              onClick={() => removeFewShot(i)}
+                              className="text-red-400 hover:text-red-600 text-xs mt-1 flex-shrink-0"
+                            >
+                              {"\u2716"}
+                            </button>
+                          )}
+                        </div>
+                      ))}
+                      {advanced.fewShotExamples.length < 5 && (
+                        <button
+                          onClick={addFewShot}
+                          className="text-xs text-claude hover:underline"
+                        >
+                          + 新增範例
+                        </button>
+                      )}
+                    </div>
+                  )}
+                </div>
+
+                {/* Temperature selector */}
+                <div>
+                  <p className="text-sm font-semibold mb-2">
+                    {"\uD83C\uDF21\uFE0F"} 回答風格
+                  </p>
+                  <div className="grid grid-cols-2 gap-2">
+                    {temperatureOptions.map((opt) => (
+                      <button
+                        key={opt.value}
+                        onClick={() =>
+                          setAdvanced((prev) => ({ ...prev, temperature: opt.value }))
+                        }
+                        className={`px-3 py-2 rounded-lg border text-left text-xs transition-all ${
+                          advanced.temperature === opt.value
+                            ? "border-claude bg-claude/5 text-claude"
+                            : "border-card-border hover:border-claude/50"
+                        }`}
+                      >
+                        <span className="font-medium">{opt.label}</span>
+                        {opt.desc && (
+                          <span className="block text-muted mt-0.5">{opt.desc}</span>
+                        )}
+                      </button>
+                    ))}
+                  </div>
+                </div>
+              </div>
+            )}
+          </div>
         </div>
 
         {/* Preview */}
@@ -238,7 +431,7 @@ export default function PromptBuilderPage() {
   );
 }
 
-function buildPrompt(fields: PromptFields): string {
+function buildPrompt(fields: PromptFields, advanced: AdvancedOptions): string {
   const parts: string[] = [];
 
   if (fields.role.trim()) {
@@ -255,6 +448,37 @@ function buildPrompt(fields: PromptFields): string {
   }
   if (fields.quality.trim()) {
     parts.push(`## 品質要求\n${fields.quality.trim()}`);
+  }
+
+  // Advanced: Chain of Thought
+  if (advanced.cot) {
+    parts.push(
+      `## 思考方式\n請先逐步列出你的推理過程，再給出最終結論。每一步用編號標示。`
+    );
+  }
+
+  // Advanced: Few-shot examples
+  if (advanced.fewShotEnabled) {
+    const validExamples = advanced.fewShotExamples.filter(
+      (ex) => ex.input.trim() && ex.output.trim()
+    );
+    if (validExamples.length > 0) {
+      const exampleLines = validExamples
+        .map(
+          (ex, i) =>
+            `### 範例 ${i + 1}\n輸入：${ex.input.trim()}\n輸出：${ex.output.trim()}`
+        )
+        .join("\n\n");
+      parts.push(`## 參考範例\n請依照以下範例的格式和風格回答：\n\n${exampleLines}`);
+    }
+  }
+
+  // Advanced: Temperature guidance
+  if (advanced.temperature) {
+    const opt = temperatureOptions.find((o) => o.value === advanced.temperature);
+    if (opt && "prompt" in opt) {
+      parts.push(`## 回答風格\n${opt.prompt}`);
+    }
   }
 
   return parts.join("\n\n");
