@@ -46,15 +46,15 @@ const features = [
     color: "from-claude to-claude-light",
   },
   {
-    title: "AI 工具比較",
-    desc: "Claude vs ChatGPT vs Gemini 決策指南",
-    href: "/tools",
+    title: "模板庫",
+    desc: "7 個可直接複製的 Project 模板",
+    href: "/templates",
     color: "from-accent to-accent-light",
   },
   {
-    title: "學習資源",
-    desc: "精選連結、模板、延伸閱讀",
-    href: "/resources",
+    title: "AI 工具比較",
+    desc: "Claude vs ChatGPT vs Gemini 決策指南",
+    href: "/tools",
     color: "from-blue to-blue-light",
   },
 ];

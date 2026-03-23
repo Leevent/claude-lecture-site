@@ -7,6 +7,7 @@ import { useState } from "react";
 const navItems = [
   { href: "/", label: "首頁" },
   { href: "/resources", label: "學習資源" },
+  { href: "/templates", label: "模板庫" },
   { href: "/prompt-builder", label: "Prompt 建構器" },
   { href: "/tools", label: "AI 工具比較" },
 ];

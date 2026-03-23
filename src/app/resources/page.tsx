@@ -62,22 +62,10 @@ const sections = [
     title: "課後作業模板",
     items: [
       {
-        name: "Project 模板：社群小編",
-        url: "#",
-        desc: "Custom Instructions + 品牌語氣文件範例",
-        template: true,
-      },
-      {
-        name: "Project 模板：會議紀錄整理",
-        url: "#",
-        desc: "上傳錄音 → 抓重點 → 行動清單",
-        template: true,
-      },
-      {
-        name: "Project 模板：Email 撰寫助手",
-        url: "#",
-        desc: "角色設定 + 格式規範 + 品質標準",
-        template: true,
+        name: "Project 模板庫（7 個完整模板）",
+        url: "/templates",
+        desc: "社群小編、會議紀錄、Email 撰寫、學習筆記、文章潤飾、一魚多吃改寫、客服 FAQ — 可直接複製使用",
+        internal: true,
       },
     ],
   },
