@@ -166,7 +166,7 @@ const templates: Template[] = [
     name: "學習筆記整理",
     icon: "\u{1F393}",
     tagline: "影片/Podcast 自動萃取結構化重點",
-    source: "Skills 靈感：transcript-processor",
+    source: "進階模板",
     description:
       "把 YouTube 影片、Podcast、線上課程的逐字稿轉化為結構化學習筆記。自動提取核心論點、金句、行動項目。適合終身學習者、知識工作者。",
     instructions: `# 角色
@@ -220,7 +220,7 @@ const templates: Template[] = [
     name: "文章潤飾助手",
     icon: "\u{270D}\u{FE0F}",
     tagline: "保留原意，提升可讀性與專業度",
-    source: "Skills 靈感：content-editor",
+    source: "進階模板",
     description:
       "幫你潤飾文章、改善可讀性、修正文法，同時保留你的個人風格和原始意圖。適合部落格作者、文案工作者、需要撰寫報告的專業人士。",
     instructions: `# 角色
@@ -269,7 +269,7 @@ const templates: Template[] = [
     name: "一魚多吃改寫引擎",
     icon: "\u{1F500}",
     tagline: "一份內容自動改寫為多平台版本",
-    source: "進階模板（靈感：酒 Ann OpenClaw C2 模式）",
+    source: "進階模板",
     description:
       "把一份核心內容（如部落格文章、演講稿、課程筆記）自動改寫成不同平台的版本，省去重複撰寫的時間。適合內容創作者、自媒體經營者、行銷團隊。",
     instructions: `# 角色
@@ -332,7 +332,7 @@ const templates: Template[] = [
     name: "客服 FAQ 回覆",
     icon: "\u{1F4AC}",
     tagline: "快速產出專業、一致的客戶回覆",
-    source: "進階模板（靈感：酒 Ann OpenClaw C7 模式）",
+    source: "進階模板",
     description:
       "建立你的客服知識庫，讓 Claude 幫你快速回覆客戶常見問題，確保每次回覆都專業、一致且友善。適合客服人員、業務、電商經營者。",
     instructions: `# 角色
@@ -384,7 +384,7 @@ const templates: Template[] = [
     name: "\u8CC7\u6599\u64F7\u53D6\u52A9\u624B",
     icon: "\u{1F4CB}",
     tagline: "\u5F9E\u96DC\u4E82\u6587\u4EF6\u63D0\u53D6\u7D50\u69CB\u5316\u8CC7\u8A0A",
-    source: "\u9032\u968E\u6A21\u677F\uFF08\u9748\u611F\uFF1AStructured Output\uFF09",
+    source: "\u9032\u968E\u6A21\u677F",
     description:
       "\u8B93 Claude \u5F9E\u975E\u7D50\u69CB\u5316\u7684\u6587\u4EF6\uFF08\u5408\u7D04\u3001\u5C65\u6B77\u3001\u767C\u7968\u3001\u6703\u8B70\u7D00\u9304\u3001Email \u4E32\uFF09\u4E2D\uFF0C\u81EA\u52D5\u63D0\u53D6\u4F60\u8981\u7684\u6B04\u4F4D\u4E26\u6574\u7406\u6210\u8868\u683C\u3002\u9069\u5408 HR\u3001\u884C\u653F\u3001\u63A1\u8CFC\u3001\u696D\u52D9\u7B49\u9700\u8981\u8655\u7406\u5927\u91CF\u6587\u4EF6\u7684\u4EBA\u3002",
     instructions: `# \u89D2\u8272
@@ -460,7 +460,7 @@ const templates: Template[] = [
     name: "\u9010\u6B65\u5206\u6790\u5E2B",
     icon: "\u{1F9E0}",
     tagline: "\u5F37\u8FEB\u4E00\u6B65\u6B65\u63A8\u7406\uFF0C\u907F\u514D\u8349\u7387\u7D50\u8AD6",
-    source: "\u9032\u968E\u6A21\u677F\uFF08\u9748\u611F\uFF1AChain of Thought\uFF09",
+    source: "\u9032\u968E\u6A21\u677F",
     description:
       "\u7528 Chain of Thought\uFF08\u9010\u6B65\u63A8\u7406\uFF09\u6280\u5DE7\u8B93 Claude \u5728\u56DE\u7B54\u524D\u5148\u5C55\u793A\u5B8C\u6574\u601D\u8003\u904E\u7A0B\u3002\u7814\u7A76\u986F\u793A\u9019\u80FD\u5C07\u6E96\u78BA\u7387\u5F9E 72% \u63D0\u5347\u5230 95%\u3002\u9069\u5408\u8907\u96DC\u6C7A\u7B56\u3001\u4F9B\u61C9\u5546\u8A55\u4F30\u3001\u554F\u984C\u8A3A\u65B7\u3001\u7B56\u7565\u898F\u5283\u3002",
     instructions: `# \u89D2\u8272
@@ -527,7 +527,7 @@ const templates: Template[] = [
     name: "\u60C5\u5883\u5206\u985E\u5668",
     icon: "\u{1F3F7}\u{FE0F}",
     tagline: "\u7528\u7BC4\u4F8B\u6559 Claude \u5206\u985E\uFF0C\u6BD4\u53E3\u982D\u8AAA\u660E\u6E96 10 \u500D",
-    source: "\u9032\u968E\u6A21\u677F\uFF08\u9748\u611F\uFF1AFew-shot Learning\uFF09",
+    source: "\u9032\u968E\u6A21\u677F",
     description:
       "\u7528 Few-shot Learning\uFF08\u7BC4\u4F8B\u5B78\u7FD2\uFF09\u6280\u5DE7\uFF0C\u900F\u904E 2-3 \u500B\u7BC4\u4F8B\u8B93 Claude \u5B78\u6703\u4F60\u7684\u5206\u985E\u6A19\u6E96\u3002\u9069\u5408\u5BA2\u6236\u56DE\u994B\u5206\u985E\u3001Email \u5206\u6D41\u3001\u5167\u5BB9\u6A19\u7C64\u3001\u554F\u984C\u5206\u7D1A\u3002",
     instructions: `# \u89D2\u8272
