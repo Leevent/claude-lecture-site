@@ -1,18 +1,7 @@
 "use client";
 
 import { useState } from "react";
-
-interface Template {
-  id: string;
-  name: string;
-  icon: string;
-  tagline: string;
-  source: string;
-  description: string;
-  instructions: string;
-  files: string[];
-  examplePrompts: string[];
-}
+import { notionTemplates, type Template } from "./notion-templates";
 
 const templates: Template[] = [
   {
@@ -166,7 +155,9 @@ const templates: Template[] = [
     name: "學習筆記整理",
     icon: "\u{1F393}",
     tagline: "影片/Podcast 自動萃取結構化重點",
-    source: "進階模板",
+    source: "精選模板參考",
+    department: "跨部門",
+    tags: ["學習筆記", "知識萃取"],
     description:
       "把 YouTube 影片、Podcast、線上課程的逐字稿轉化為結構化學習筆記。自動提取核心論點、金句、行動項目。適合終身學習者、知識工作者。",
     instructions: `# 角色
@@ -220,7 +211,9 @@ const templates: Template[] = [
     name: "文章潤飾助手",
     icon: "\u{270D}\u{FE0F}",
     tagline: "保留原意，提升可讀性與專業度",
-    source: "進階模板",
+    source: "精選模板參考",
+    department: "跨部門",
+    tags: ["文字編輯", "潤飾"],
     description:
       "幫你潤飾文章、改善可讀性、修正文法，同時保留你的個人風格和原始意圖。適合部落格作者、文案工作者、需要撰寫報告的專業人士。",
     instructions: `# 角色
@@ -269,7 +262,9 @@ const templates: Template[] = [
     name: "一魚多吃改寫引擎",
     icon: "\u{1F500}",
     tagline: "一份內容自動改寫為多平台版本",
-    source: "進階模板",
+    source: "精選模板參考",
+    department: "行銷",
+    tags: ["跨平台", "內容改寫"],
     description:
       "把一份核心內容（如部落格文章、演講稿、課程筆記）自動改寫成不同平台的版本，省去重複撰寫的時間。適合內容創作者、自媒體經營者、行銷團隊。",
     instructions: `# 角色
@@ -332,7 +327,9 @@ const templates: Template[] = [
     name: "客服 FAQ 回覆",
     icon: "\u{1F4AC}",
     tagline: "快速產出專業、一致的客戶回覆",
-    source: "進階模板",
+    source: "精選模板參考",
+    department: "業務",
+    tags: ["客服", "FAQ"],
     description:
       "建立你的客服知識庫，讓 Claude 幫你快速回覆客戶常見問題，確保每次回覆都專業、一致且友善。適合客服人員、業務、電商經營者。",
     instructions: `# 角色
@@ -384,7 +381,9 @@ const templates: Template[] = [
     name: "\u8CC7\u6599\u64F7\u53D6\u52A9\u624B",
     icon: "\u{1F4CB}",
     tagline: "\u5F9E\u96DC\u4E82\u6587\u4EF6\u63D0\u53D6\u7D50\u69CB\u5316\u8CC7\u8A0A",
-    source: "\u9032\u968E\u6A21\u677F",
+    source: "\u7CBE\u9078\u6A21\u677F\u53C3\u8003",
+    department: "\u8DE8\u90E8\u9580",
+    tags: ["\u8CC7\u6599\u8655\u7406", "\u8868\u683C"],
     description:
       "\u8B93 Claude \u5F9E\u975E\u7D50\u69CB\u5316\u7684\u6587\u4EF6\uFF08\u5408\u7D04\u3001\u5C65\u6B77\u3001\u767C\u7968\u3001\u6703\u8B70\u7D00\u9304\u3001Email \u4E32\uFF09\u4E2D\uFF0C\u81EA\u52D5\u63D0\u53D6\u4F60\u8981\u7684\u6B04\u4F4D\u4E26\u6574\u7406\u6210\u8868\u683C\u3002\u9069\u5408 HR\u3001\u884C\u653F\u3001\u63A1\u8CFC\u3001\u696D\u52D9\u7B49\u9700\u8981\u8655\u7406\u5927\u91CF\u6587\u4EF6\u7684\u4EBA\u3002",
     instructions: `# \u89D2\u8272
@@ -460,7 +459,9 @@ const templates: Template[] = [
     name: "\u9010\u6B65\u5206\u6790\u5E2B",
     icon: "\u{1F9E0}",
     tagline: "\u5F37\u8FEB\u4E00\u6B65\u6B65\u63A8\u7406\uFF0C\u907F\u514D\u8349\u7387\u7D50\u8AD6",
-    source: "\u9032\u968E\u6A21\u677F",
+    source: "\u7CBE\u9078\u6A21\u677F\u53C3\u8003",
+    department: "\u8DE8\u90E8\u9580",
+    tags: ["\u5206\u6790", "\u6C7A\u7B56"],
     description:
       "\u7528 Chain of Thought\uFF08\u9010\u6B65\u63A8\u7406\uFF09\u6280\u5DE7\u8B93 Claude \u5728\u56DE\u7B54\u524D\u5148\u5C55\u793A\u5B8C\u6574\u601D\u8003\u904E\u7A0B\u3002\u7814\u7A76\u986F\u793A\u9019\u80FD\u5C07\u6E96\u78BA\u7387\u5F9E 72% \u63D0\u5347\u5230 95%\u3002\u9069\u5408\u8907\u96DC\u6C7A\u7B56\u3001\u4F9B\u61C9\u5546\u8A55\u4F30\u3001\u554F\u984C\u8A3A\u65B7\u3001\u7B56\u7565\u898F\u5283\u3002",
     instructions: `# \u89D2\u8272
@@ -527,7 +528,9 @@ const templates: Template[] = [
     name: "\u60C5\u5883\u5206\u985E\u5668",
     icon: "\u{1F3F7}\u{FE0F}",
     tagline: "\u7528\u7BC4\u4F8B\u6559 Claude \u5206\u985E\uFF0C\u6BD4\u53E3\u982D\u8AAA\u660E\u6E96 10 \u500D",
-    source: "\u9032\u968E\u6A21\u677F",
+    source: "\u7CBE\u9078\u6A21\u677F\u53C3\u8003",
+    department: "\u8DE8\u90E8\u9580",
+    tags: ["\u5206\u985E", "Few-shot"],
     description:
       "\u7528 Few-shot Learning\uFF08\u7BC4\u4F8B\u5B78\u7FD2\uFF09\u6280\u5DE7\uFF0C\u900F\u904E 2-3 \u500B\u7BC4\u4F8B\u8B93 Claude \u5B78\u6703\u4F60\u7684\u5206\u985E\u6A19\u6E96\u3002\u9069\u5408\u5BA2\u6236\u56DE\u994B\u5206\u985E\u3001Email \u5206\u6D41\u3001\u5167\u5BB9\u6A19\u7C64\u3001\u554F\u984C\u5206\u7D1A\u3002",
     instructions: `# \u89D2\u8272
@@ -579,170 +582,10 @@ const templates: Template[] = [
   },
 ];
 
-// 精選 Notion Prompt 資料
-interface NotionPrompt {
-  id: string;
-  name: string;
-  icon: string;
-  department: string;
-  tagline: string;
-  tags: string[];
-  level: string[];
-  notionUrl: string;
-}
+// 合併所有精選模板（7 原進階 + 15 Notion）
+const allTemplates: Template[] = [...templates, ...notionTemplates];
 
-const notionPrompts: NotionPrompt[] = [
-  {
-    id: "costar",
-    name: "COSTAR 框架 Prompt 撰寫器",
-    icon: "\u{1F3AF}",
-    department: "跨部門",
-    tagline: "用 COSTAR 六維框架寫出結構化高品質 Prompt",
-    tags: ["Prompt工程", "COSTAR框架", "AI應用"],
-    level: ["通用"],
-    notionUrl: "https://www.notion.so/32c69d4c2835815eb603c3ac62ba5c54",
-  },
-  {
-    id: "hook-generator",
-    name: "高點擊率標題與 Hook 產生器",
-    icon: "\u{1F3A3}",
-    department: "行銷",
-    tagline: "運用心理學原理批量生成吸引點擊的標題與開場白",
-    tags: ["文案", "標題", "Hook"],
-    level: ["通用"],
-    notionUrl: "https://www.notion.so/32c69d4c283581689df2f53df7ebdf8d",
-  },
-  {
-    id: "cross-platform-posts",
-    name: "跨平台社群貼文批量產出器",
-    icon: "\u{1F4F2}",
-    department: "行銷",
-    tagline: "一次產出 IG、FB、Threads、LinkedIn、X 五平台貼文",
-    tags: ["社群經營", "跨平台"],
-    level: ["通用"],
-    notionUrl: "https://www.notion.so/32c69d4c28358185b540cc012d08d36e",
-  },
-  {
-    id: "seo-blog",
-    name: "SEO 部落格文章撰寫助手",
-    icon: "\u{1F50D}",
-    department: "行銷",
-    tagline: "產出符合 SEO 規範的長篇文章，含關鍵字佈局與結構",
-    tags: ["SEO", "內容行銷", "部落格"],
-    level: ["通用", "中階主管"],
-    notionUrl: "https://www.notion.so/32c69d4c28358110b748ce5bbc2d4289",
-  },
-  {
-    id: "edm",
-    name: "電子報內容生成助手",
-    icon: "\u{1F4E7}",
-    department: "行銷",
-    tagline: "自動生成 EDM 草稿，含主旨 A/B 版本與 CTA 設計",
-    tags: ["電子報", "EDM"],
-    level: ["通用", "中階主管"],
-    notionUrl: "https://www.notion.so/32c69d4c28358118abfdd72b34d183cb",
-  },
-  {
-    id: "content-calendar",
-    name: "月度內容日曆規劃",
-    icon: "\u{1F4C5}",
-    department: "行銷",
-    tagline: "根據商業目標規劃完整月度內容計畫與工時評估",
-    tags: ["內容策略", "日曆規劃"],
-    level: ["中階主管"],
-    notionUrl: "https://www.notion.so/32c69d4c283581b18027fe18918431bb",
-  },
-  {
-    id: "presentation",
-    name: "簡報製作專家",
-    icon: "\u{1F4CA}",
-    department: "跨部門",
-    tagline: "快速產出簡報架構與逐頁講稿，支援三種表達框架",
-    tags: ["簡報製作", "商務溝通"],
-    level: ["通用"],
-    notionUrl: "https://www.notion.so/32c69d4c28358124b9a5c46eba92e2d7",
-  },
-  {
-    id: "sales-page",
-    name: "產品銷售頁文案",
-    icon: "\u{1F4B0}",
-    department: "業務",
-    tagline: "從痛點到 CTA 的完整銷售頁說服邏輯文案",
-    tags: ["文案", "銷售頁"],
-    level: ["通用", "中階主管"],
-    notionUrl: "https://www.notion.so/32c69d4c283581f2b841c774c88b4729",
-  },
-  {
-    id: "lead-magnet",
-    name: "免費引流素材生成",
-    icon: "\u{1F9F2}",
-    department: "業務",
-    tagline: "自動生成 PDF、電子書、工具包等引流素材與配套文案",
-    tags: ["行銷", "Lead Magnet"],
-    level: ["通用", "中階主管"],
-    notionUrl: "https://www.notion.so/32c69d4c283581f29d57cb39c562464e",
-  },
-  {
-    id: "competitor",
-    name: "競品產品分析",
-    icon: "\u{1F52C}",
-    department: "業務",
-    tagline: "系統性拆解競品定價、話術、評價，找出差異化機會",
-    tags: ["競品分析", "市場策略"],
-    level: ["通用", "中階主管"],
-    notionUrl: "https://www.notion.so/32c69d4c28358174b453f557c4d14f89",
-  },
-  {
-    id: "ta-research",
-    name: "目標客群研究與分析",
-    icon: "\u{1F465}",
-    department: "業務",
-    tagline: "TA 人物輪廓、市場可行性評估、競品缺口分析",
-    tags: ["市場調研", "TA分析"],
-    level: ["通用", "中階主管"],
-    notionUrl: "https://www.notion.so/32c69d4c2835814c9fb9fe5f4a37e5e7",
-  },
-  {
-    id: "ad-ab-test",
-    name: "廣告素材製作與 A/B 測試",
-    icon: "\u{1F4D0}",
-    department: "行銷",
-    tagline: "多版本廣告文案 + 圖片規格 + 分週測試計畫",
-    tags: ["廣告投放", "A/B測試"],
-    level: ["通用", "中階主管"],
-    notionUrl: "https://www.notion.so/32c69d4c2835816f9e28e3251f1b397f",
-  },
-  {
-    id: "excel-helper",
-    name: "Excel 公式與報表助手",
-    icon: "\u{1F4C8}",
-    department: "跨部門",
-    tagline: "快速生成 Excel 公式、數據分析與報表模板",
-    tags: ["Excel", "數據分析"],
-    level: ["通用"],
-    notionUrl: "https://www.notion.so/32c69d4c283581d2b01dd8ccdeadc0e1",
-  },
-  {
-    id: "brand-visual",
-    name: "企業品牌視覺規範生成",
-    icon: "\u{1F3A8}",
-    department: "跨部門",
-    tagline: "色票、字體、Logo 規則到各平台模板的完整視覺規範",
-    tags: ["品牌設計", "視覺規範"],
-    level: ["通用", "中階主管"],
-    notionUrl: "https://www.notion.so/32c69d4c2835811aa4f6e2d49c5f1a6d",
-  },
-  {
-    id: "crisis-pr",
-    name: "品牌危機公關處理",
-    icon: "\u{1F6A8}",
-    department: "行銷",
-    tagline: "黃金 24 小時行動計畫、各平台聲明與長期修復策略",
-    tags: ["公關", "危機處理"],
-    level: ["中階主管", "高階經理人"],
-    notionUrl: "https://www.notion.so/32c69d4c2835813194eef77f90fc45d4",
-  },
-];
+// Old notionPrompts removed — full content now in notion-templates.ts
 
 const deptColorMap: Record<string, string> = {
   "行銷": "bg-[#3b82f6]/10 text-[#3b82f6]",
@@ -753,16 +596,16 @@ const deptColorMap: Record<string, string> = {
 export default function TemplatesPage() {
   const [openId, setOpenId] = useState<string | null>(null);
   const [copied, setCopied] = useState<string | null>(null);
-  const [viewMode, setViewMode] = useState<"grid" | "list">("grid");
+  const [viewMode, setViewMode] = useState<"grid" | "list">("list");
   const [deptFilter, setDeptFilter] = useState<string>("all");
 
   const coreTemplates = templates.filter((t) => t.source === "課堂核心模板");
-  const advancedTemplates = templates.filter((t) => t.source !== "課堂核心模板");
-  const allDepts = [...new Set(notionPrompts.map((p) => p.department))];
-  const filteredNotion =
+  const featuredTemplates = allTemplates.filter((t) => t.source === "精選模板參考");
+  const allDepts = [...new Set(featuredTemplates.map((t) => t.department).filter(Boolean))] as string[];
+  const filteredFeatured =
     deptFilter === "all"
-      ? notionPrompts
-      : notionPrompts.filter((p) => p.department === deptFilter);
+      ? featuredTemplates
+      : featuredTemplates.filter((t) => t.department === deptFilter);
 
   const handleCopy = async (text: string, label: string) => {
     try {
@@ -941,127 +784,7 @@ export default function TemplatesPage() {
         })}
       </div>
 
-      {/* Section 2: 進階模板 */}
-      <div className="mt-10 mb-4">
-        <h2 className="text-xl font-bold flex items-center gap-2">
-          <span className="w-2 h-6 bg-accent rounded-full"></span>
-          進階模板
-        </h2>
-        <p className="text-sm text-muted mt-1">
-          延伸應用的進階模板，幫你處理更多工作場景
-        </p>
-      </div>
-      <div className="space-y-4">
-        {advancedTemplates.map((t) => {
-          const isOpen = openId === t.id;
-          return (
-            <div
-              key={t.id}
-              className="bg-white rounded-2xl border border-card-border overflow-hidden transition-all hover:border-accent/30"
-            >
-              <button
-                onClick={() => setOpenId(isOpen ? null : t.id)}
-                className="w-full text-left p-6 flex items-start gap-4 cursor-pointer"
-              >
-                <span className="text-3xl flex-shrink-0">{t.icon}</span>
-                <div className="flex-1 min-w-0">
-                  <div className="flex items-center gap-2 flex-wrap mb-1">
-                    <h2 className="font-bold text-lg">{t.name}</h2>
-                    <span className="text-xs px-2 py-0.5 rounded-full bg-primary/5 text-muted">
-                      {t.source}
-                    </span>
-                  </div>
-                  <p className="text-sm text-muted">{t.tagline}</p>
-                </div>
-                <span
-                  className={`text-muted transition-transform flex-shrink-0 text-xl ${
-                    isOpen ? "rotate-180" : ""
-                  }`}
-                >
-                  &#9660;
-                </span>
-              </button>
-              {isOpen && (
-                <div className="px-6 pb-6 border-t border-card-border pt-4">
-                  <p className="text-sm mb-6">{t.description}</p>
-                  <div className="mb-6">
-                    <div className="flex items-center justify-between mb-2">
-                      <h3 className="font-bold text-sm flex items-center gap-2">
-                        <span className="w-1.5 h-5 bg-claude rounded-full"></span>
-                        Custom Instructions（點擊複製）
-                      </h3>
-                      <button
-                        onClick={() =>
-                          handleCopy(t.instructions, `instr-${t.id}`)
-                        }
-                        className="text-xs px-3 py-1 rounded-lg bg-claude text-white hover:bg-claude-light transition-colors cursor-pointer"
-                      >
-                        {copied === `instr-${t.id}`
-                          ? "\u2713 已複製"
-                          : "複製指令"}
-                      </button>
-                    </div>
-                    <div
-                      onClick={() =>
-                        handleCopy(t.instructions, `instr-${t.id}`)
-                      }
-                      className="bg-primary/[0.03] border border-card-border rounded-xl p-4 text-xs font-mono whitespace-pre-wrap leading-relaxed cursor-pointer hover:border-claude/30 transition-colors max-h-80 overflow-y-auto"
-                    >
-                      {t.instructions}
-                    </div>
-                  </div>
-                  <div className="mb-6">
-                    <h3 className="font-bold text-sm flex items-center gap-2 mb-2">
-                      <span className="w-1.5 h-5 bg-accent rounded-full"></span>
-                      建議上傳的檔案
-                    </h3>
-                    <ul className="space-y-1.5">
-                      {t.files.map((f, i) => (
-                        <li
-                          key={i}
-                          className="text-sm text-muted flex items-start gap-2"
-                        >
-                          <span className="text-accent mt-0.5">&#9679;</span>
-                          {f}
-                        </li>
-                      ))}
-                    </ul>
-                  </div>
-                  <div>
-                    <h3 className="font-bold text-sm flex items-center gap-2 mb-2">
-                      <span className="w-1.5 h-5 bg-blue rounded-full"></span>
-                      範例 Prompt（可直接使用）
-                    </h3>
-                    <div className="space-y-2">
-                      {t.examplePrompts.map((p, i) => (
-                        <div
-                          key={i}
-                          onClick={() =>
-                            handleCopy(p, `prompt-${t.id}-${i}`)
-                          }
-                          className="group flex items-start gap-3 p-3 bg-blue/[0.03] border border-blue/10 rounded-lg cursor-pointer hover:border-blue/30 transition-colors"
-                        >
-                          <span className="text-blue text-xs mt-0.5 flex-shrink-0">
-                            {copied === `prompt-${t.id}-${i}`
-                              ? "\u2713"
-                              : `${i + 1}.`}
-                          </span>
-                          <span className="text-sm flex-1">{p}</span>
-                          <span className="text-xs text-muted opacity-0 group-hover:opacity-100 transition-opacity flex-shrink-0">
-                            點擊複製
-                          </span>
-                        </div>
-                      ))}
-                    </div>
-                  </div>
-                </div>
-              )}
-            </div>
-          );
-        })}
-      </div>
-
-      {/* Section 3: 精選模板參考 */}
+      {/* Section 2: 精選模板參考 */}
       <div className="mt-10 mb-4">
         <div className="flex items-center justify-between">
           <div>
@@ -1133,7 +856,7 @@ export default function TemplatesPage() {
               : "border-card-border text-muted hover:border-primary/30"
           }`}
         >
-          全部
+          全部（{featuredTemplates.length}）
         </button>
         {allDepts.map((dept) => (
           <button
@@ -1150,92 +873,148 @@ export default function TemplatesPage() {
         ))}
       </div>
 
-      {/* Grid / List view */}
-      {viewMode === "grid" ? (
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 mb-8">
-          {filteredNotion.map((p) => (
-            <a
-              key={p.id}
-              href={p.notionUrl}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="bg-white rounded-xl border border-card-border p-4 hover:border-accent/30 hover:shadow-md transition-all group block"
+      {/* Featured templates — accordion cards in grid or list layout */}
+      <div
+        className={
+          viewMode === "grid"
+            ? "grid grid-cols-1 sm:grid-cols-2 gap-4 mb-8"
+            : "space-y-4 mb-8"
+        }
+      >
+        {filteredFeatured.map((t) => {
+          const isOpen = openId === t.id;
+          return (
+            <div
+              key={t.id}
+              className={`bg-white rounded-2xl border border-card-border overflow-hidden transition-all hover:border-accent/30 ${
+                viewMode === "grid" && isOpen ? "sm:col-span-2" : ""
+              }`}
             >
-              <div className="flex items-start gap-3 mb-3">
-                <span className="text-2xl flex-shrink-0">{p.icon}</span>
+              {/* Header */}
+              <button
+                onClick={() => setOpenId(isOpen ? null : t.id)}
+                className="w-full text-left p-5 flex items-start gap-3 cursor-pointer"
+              >
+                <span className="text-2xl flex-shrink-0">{t.icon}</span>
                 <div className="flex-1 min-w-0">
-                  <h3 className="font-bold text-sm mb-1 group-hover:text-claude transition-colors">
-                    {p.name}
-                  </h3>
-                  <span
-                    className={`text-[10px] px-2 py-0.5 rounded-full ${
-                      deptColorMap[p.department] || "bg-gray-100 text-gray-600"
-                    }`}
-                  >
-                    {p.department}
-                  </span>
+                  <div className="flex items-center gap-2 flex-wrap mb-1">
+                    <h3 className="font-bold text-sm">{t.name}</h3>
+                    {t.department && (
+                      <span
+                        className={`text-[10px] px-2 py-0.5 rounded-full ${
+                          deptColorMap[t.department] ||
+                          "bg-gray-100 text-gray-600"
+                        }`}
+                      >
+                        {t.department}
+                      </span>
+                    )}
+                    {t.tags?.slice(0, 2).map((tag) => (
+                      <span
+                        key={tag}
+                        className="text-[10px] px-1.5 py-0.5 bg-primary/5 text-muted rounded hidden sm:inline"
+                      >
+                        {tag}
+                      </span>
+                    ))}
+                  </div>
+                  <p className="text-xs text-muted">{t.tagline}</p>
                 </div>
-              </div>
-              <p className="text-xs text-muted leading-relaxed mb-3">
-                {p.tagline}
-              </p>
-              <div className="flex flex-wrap gap-1 mb-3">
-                {p.tags.map((tag) => (
-                  <span
-                    key={tag}
-                    className="text-[10px] px-1.5 py-0.5 bg-primary/5 text-muted rounded"
-                  >
-                    {tag}
-                  </span>
-                ))}
-              </div>
-              <span className="text-xs text-claude flex items-center gap-1 opacity-60 group-hover:opacity-100 transition-opacity">
-                查看完整 Prompt &#8594;
-              </span>
-            </a>
-          ))}
-        </div>
-      ) : (
-        <div className="space-y-2 mb-8">
-          {filteredNotion.map((p) => (
-            <a
-              key={p.id}
-              href={p.notionUrl}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="flex items-center gap-4 p-3 bg-white rounded-lg border border-card-border hover:border-accent/30 transition-all group block"
-            >
-              <span className="text-xl flex-shrink-0">{p.icon}</span>
-              <div className="flex-1 min-w-0">
-                <div className="flex items-center gap-2 mb-0.5 flex-wrap">
-                  <h3 className="font-bold text-sm group-hover:text-claude transition-colors">
-                    {p.name}
-                  </h3>
-                  <span
-                    className={`text-[10px] px-2 py-0.5 rounded-full ${
-                      deptColorMap[p.department] || "bg-gray-100 text-gray-600"
-                    }`}
-                  >
-                    {p.department}
-                  </span>
-                  {p.tags.slice(0, 2).map((tag) => (
-                    <span
-                      key={tag}
-                      className="text-[10px] px-1.5 py-0.5 bg-primary/5 text-muted rounded hidden sm:inline"
+                <span
+                  className={`text-muted transition-transform flex-shrink-0 text-lg ${
+                    isOpen ? "rotate-180" : ""
+                  }`}
+                >
+                  &#9660;
+                </span>
+              </button>
+
+              {/* Expanded content */}
+              {isOpen && (
+                <div className="px-5 pb-5 border-t border-card-border pt-4">
+                  <p className="text-sm mb-6">{t.description}</p>
+
+                  {/* Instructions */}
+                  <div className="mb-6">
+                    <div className="flex items-center justify-between mb-2">
+                      <h3 className="font-bold text-sm flex items-center gap-2">
+                        <span className="w-1.5 h-5 bg-claude rounded-full"></span>
+                        Custom Instructions（點擊複製）
+                      </h3>
+                      <button
+                        onClick={() =>
+                          handleCopy(t.instructions, `instr-${t.id}`)
+                        }
+                        className="text-xs px-3 py-1 rounded-lg bg-claude text-white hover:bg-claude-light transition-colors cursor-pointer"
+                      >
+                        {copied === `instr-${t.id}`
+                          ? "\u2713 已複製"
+                          : "複製指令"}
+                      </button>
+                    </div>
+                    <div
+                      onClick={() =>
+                        handleCopy(t.instructions, `instr-${t.id}`)
+                      }
+                      className="bg-primary/[0.03] border border-card-border rounded-xl p-4 text-xs font-mono whitespace-pre-wrap leading-relaxed cursor-pointer hover:border-claude/30 transition-colors max-h-80 overflow-y-auto"
                     >
-                      {tag}
-                    </span>
-                  ))}
+                      {t.instructions}
+                    </div>
+                  </div>
+
+                  {/* Recommended files */}
+                  <div className="mb-6">
+                    <h3 className="font-bold text-sm flex items-center gap-2 mb-2">
+                      <span className="w-1.5 h-5 bg-accent rounded-full"></span>
+                      建議上傳的檔案
+                    </h3>
+                    <ul className="space-y-1.5">
+                      {t.files.map((f, i) => (
+                        <li
+                          key={i}
+                          className="text-sm text-muted flex items-start gap-2"
+                        >
+                          <span className="text-accent mt-0.5">&#9679;</span>
+                          {f}
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
+
+                  {/* Example prompts */}
+                  <div>
+                    <h3 className="font-bold text-sm flex items-center gap-2 mb-2">
+                      <span className="w-1.5 h-5 bg-blue rounded-full"></span>
+                      範例 Prompt（可直接使用）
+                    </h3>
+                    <div className="space-y-2">
+                      {t.examplePrompts.map((p, i) => (
+                        <div
+                          key={i}
+                          onClick={() =>
+                            handleCopy(p, `prompt-${t.id}-${i}`)
+                          }
+                          className="group flex items-start gap-3 p-3 bg-blue/[0.03] border border-blue/10 rounded-lg cursor-pointer hover:border-blue/30 transition-colors"
+                        >
+                          <span className="text-blue text-xs mt-0.5 flex-shrink-0">
+                            {copied === `prompt-${t.id}-${i}`
+                              ? "\u2713"
+                              : `${i + 1}.`}
+                          </span>
+                          <span className="text-sm flex-1">{p}</span>
+                          <span className="text-xs text-muted opacity-0 group-hover:opacity-100 transition-opacity flex-shrink-0">
+                            點擊複製
+                          </span>
+                        </div>
+                      ))}
+                    </div>
+                  </div>
                 </div>
-                <p className="text-xs text-muted truncate">{p.tagline}</p>
-              </div>
-              <span className="text-xs text-claude opacity-0 group-hover:opacity-100 transition-opacity flex-shrink-0">
-                查看 &#8594;
-              </span>
-            </a>
-          ))}
-        </div>
-      )}
+              )}
+            </div>
+          );
+        })}
+      </div>
 
       {/* Bottom CTA */}
       <div className="mt-12 bg-primary rounded-2xl p-8 text-center text-white">
