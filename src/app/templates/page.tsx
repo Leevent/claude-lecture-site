@@ -579,9 +579,190 @@ const templates: Template[] = [
   },
 ];
 
+// 精選 Notion Prompt 資料
+interface NotionPrompt {
+  id: string;
+  name: string;
+  icon: string;
+  department: string;
+  tagline: string;
+  tags: string[];
+  level: string[];
+  notionUrl: string;
+}
+
+const notionPrompts: NotionPrompt[] = [
+  {
+    id: "costar",
+    name: "COSTAR 框架 Prompt 撰寫器",
+    icon: "\u{1F3AF}",
+    department: "跨部門",
+    tagline: "用 COSTAR 六維框架寫出結構化高品質 Prompt",
+    tags: ["Prompt工程", "COSTAR框架", "AI應用"],
+    level: ["通用"],
+    notionUrl: "https://www.notion.so/32c69d4c2835815eb603c3ac62ba5c54",
+  },
+  {
+    id: "hook-generator",
+    name: "高點擊率標題與 Hook 產生器",
+    icon: "\u{1F3A3}",
+    department: "行銷",
+    tagline: "運用心理學原理批量生成吸引點擊的標題與開場白",
+    tags: ["文案", "標題", "Hook"],
+    level: ["通用"],
+    notionUrl: "https://www.notion.so/32c69d4c283581689df2f53df7ebdf8d",
+  },
+  {
+    id: "cross-platform-posts",
+    name: "跨平台社群貼文批量產出器",
+    icon: "\u{1F4F2}",
+    department: "行銷",
+    tagline: "一次產出 IG、FB、Threads、LinkedIn、X 五平台貼文",
+    tags: ["社群經營", "跨平台"],
+    level: ["通用"],
+    notionUrl: "https://www.notion.so/32c69d4c28358185b540cc012d08d36e",
+  },
+  {
+    id: "seo-blog",
+    name: "SEO 部落格文章撰寫助手",
+    icon: "\u{1F50D}",
+    department: "行銷",
+    tagline: "產出符合 SEO 規範的長篇文章，含關鍵字佈局與結構",
+    tags: ["SEO", "內容行銷", "部落格"],
+    level: ["通用", "中階主管"],
+    notionUrl: "https://www.notion.so/32c69d4c28358110b748ce5bbc2d4289",
+  },
+  {
+    id: "edm",
+    name: "電子報內容生成助手",
+    icon: "\u{1F4E7}",
+    department: "行銷",
+    tagline: "自動生成 EDM 草稿，含主旨 A/B 版本與 CTA 設計",
+    tags: ["電子報", "EDM"],
+    level: ["通用", "中階主管"],
+    notionUrl: "https://www.notion.so/32c69d4c28358118abfdd72b34d183cb",
+  },
+  {
+    id: "content-calendar",
+    name: "月度內容日曆規劃",
+    icon: "\u{1F4C5}",
+    department: "行銷",
+    tagline: "根據商業目標規劃完整月度內容計畫與工時評估",
+    tags: ["內容策略", "日曆規劃"],
+    level: ["中階主管"],
+    notionUrl: "https://www.notion.so/32c69d4c283581b18027fe18918431bb",
+  },
+  {
+    id: "presentation",
+    name: "簡報製作專家",
+    icon: "\u{1F4CA}",
+    department: "跨部門",
+    tagline: "快速產出簡報架構與逐頁講稿，支援三種表達框架",
+    tags: ["簡報製作", "商務溝通"],
+    level: ["通用"],
+    notionUrl: "https://www.notion.so/32c69d4c28358124b9a5c46eba92e2d7",
+  },
+  {
+    id: "sales-page",
+    name: "產品銷售頁文案",
+    icon: "\u{1F4B0}",
+    department: "業務",
+    tagline: "從痛點到 CTA 的完整銷售頁說服邏輯文案",
+    tags: ["文案", "銷售頁"],
+    level: ["通用", "中階主管"],
+    notionUrl: "https://www.notion.so/32c69d4c283581f2b841c774c88b4729",
+  },
+  {
+    id: "lead-magnet",
+    name: "免費引流素材生成",
+    icon: "\u{1F9F2}",
+    department: "業務",
+    tagline: "自動生成 PDF、電子書、工具包等引流素材與配套文案",
+    tags: ["行銷", "Lead Magnet"],
+    level: ["通用", "中階主管"],
+    notionUrl: "https://www.notion.so/32c69d4c283581f29d57cb39c562464e",
+  },
+  {
+    id: "competitor",
+    name: "競品產品分析",
+    icon: "\u{1F52C}",
+    department: "業務",
+    tagline: "系統性拆解競品定價、話術、評價，找出差異化機會",
+    tags: ["競品分析", "市場策略"],
+    level: ["通用", "中階主管"],
+    notionUrl: "https://www.notion.so/32c69d4c28358174b453f557c4d14f89",
+  },
+  {
+    id: "ta-research",
+    name: "目標客群研究與分析",
+    icon: "\u{1F465}",
+    department: "業務",
+    tagline: "TA 人物輪廓、市場可行性評估、競品缺口分析",
+    tags: ["市場調研", "TA分析"],
+    level: ["通用", "中階主管"],
+    notionUrl: "https://www.notion.so/32c69d4c2835814c9fb9fe5f4a37e5e7",
+  },
+  {
+    id: "ad-ab-test",
+    name: "廣告素材製作與 A/B 測試",
+    icon: "\u{1F4D0}",
+    department: "行銷",
+    tagline: "多版本廣告文案 + 圖片規格 + 分週測試計畫",
+    tags: ["廣告投放", "A/B測試"],
+    level: ["通用", "中階主管"],
+    notionUrl: "https://www.notion.so/32c69d4c2835816f9e28e3251f1b397f",
+  },
+  {
+    id: "excel-helper",
+    name: "Excel 公式與報表助手",
+    icon: "\u{1F4C8}",
+    department: "跨部門",
+    tagline: "快速生成 Excel 公式、數據分析與報表模板",
+    tags: ["Excel", "數據分析"],
+    level: ["通用"],
+    notionUrl: "https://www.notion.so/32c69d4c283581d2b01dd8ccdeadc0e1",
+  },
+  {
+    id: "brand-visual",
+    name: "企業品牌視覺規範生成",
+    icon: "\u{1F3A8}",
+    department: "跨部門",
+    tagline: "色票、字體、Logo 規則到各平台模板的完整視覺規範",
+    tags: ["品牌設計", "視覺規範"],
+    level: ["通用", "中階主管"],
+    notionUrl: "https://www.notion.so/32c69d4c2835811aa4f6e2d49c5f1a6d",
+  },
+  {
+    id: "crisis-pr",
+    name: "品牌危機公關處理",
+    icon: "\u{1F6A8}",
+    department: "行銷",
+    tagline: "黃金 24 小時行動計畫、各平台聲明與長期修復策略",
+    tags: ["公關", "危機處理"],
+    level: ["中階主管", "高階經理人"],
+    notionUrl: "https://www.notion.so/32c69d4c2835813194eef77f90fc45d4",
+  },
+];
+
+const deptColorMap: Record<string, string> = {
+  "行銷": "bg-[#3b82f6]/10 text-[#3b82f6]",
+  "業務": "bg-[#10b981]/10 text-[#10b981]",
+  "跨部門": "bg-[#8b5cf6]/10 text-[#8b5cf6]",
+};
+
 export default function TemplatesPage() {
   const [openId, setOpenId] = useState<string | null>(null);
   const [copied, setCopied] = useState<string | null>(null);
+  const [viewMode, setViewMode] = useState<"grid" | "list">("grid");
+  const [deptFilter, setDeptFilter] = useState<string>("all");
+
+  const coreTemplates = templates.filter((t) => t.source === "課堂核心模板");
+  const advancedTemplates = templates.filter((t) => t.source !== "課堂核心模板");
+  const allDepts = [...new Set(notionPrompts.map((p) => p.department))];
+  const filteredNotion =
+    deptFilter === "all"
+      ? notionPrompts
+      : notionPrompts.filter((p) => p.department === deptFilter);
 
   const handleCopy = async (text: string, label: string) => {
     try {
@@ -631,8 +812,18 @@ export default function TemplatesPage() {
         </ol>
       </div>
 
+      {/* Section 1: 課堂核心作業 */}
+      <div className="mb-4">
+        <h2 className="text-xl font-bold flex items-center gap-2">
+          <span className="w-2 h-6 bg-claude rounded-full"></span>
+          課堂核心作業
+        </h2>
+        <p className="text-sm text-muted mt-1">
+          課堂教學的核心模板，可直接複製到 Claude Projects 使用
+        </p>
+      </div>
       <div className="space-y-4">
-        {templates.map((t) => {
+        {coreTemplates.map((t) => {
           const isOpen = openId === t.id;
           return (
             <div
@@ -749,6 +940,302 @@ export default function TemplatesPage() {
           );
         })}
       </div>
+
+      {/* Section 2: 進階模板 */}
+      <div className="mt-10 mb-4">
+        <h2 className="text-xl font-bold flex items-center gap-2">
+          <span className="w-2 h-6 bg-accent rounded-full"></span>
+          進階模板
+        </h2>
+        <p className="text-sm text-muted mt-1">
+          延伸應用的進階模板，幫你處理更多工作場景
+        </p>
+      </div>
+      <div className="space-y-4">
+        {advancedTemplates.map((t) => {
+          const isOpen = openId === t.id;
+          return (
+            <div
+              key={t.id}
+              className="bg-white rounded-2xl border border-card-border overflow-hidden transition-all hover:border-accent/30"
+            >
+              <button
+                onClick={() => setOpenId(isOpen ? null : t.id)}
+                className="w-full text-left p-6 flex items-start gap-4 cursor-pointer"
+              >
+                <span className="text-3xl flex-shrink-0">{t.icon}</span>
+                <div className="flex-1 min-w-0">
+                  <div className="flex items-center gap-2 flex-wrap mb-1">
+                    <h2 className="font-bold text-lg">{t.name}</h2>
+                    <span className="text-xs px-2 py-0.5 rounded-full bg-primary/5 text-muted">
+                      {t.source}
+                    </span>
+                  </div>
+                  <p className="text-sm text-muted">{t.tagline}</p>
+                </div>
+                <span
+                  className={`text-muted transition-transform flex-shrink-0 text-xl ${
+                    isOpen ? "rotate-180" : ""
+                  }`}
+                >
+                  &#9660;
+                </span>
+              </button>
+              {isOpen && (
+                <div className="px-6 pb-6 border-t border-card-border pt-4">
+                  <p className="text-sm mb-6">{t.description}</p>
+                  <div className="mb-6">
+                    <div className="flex items-center justify-between mb-2">
+                      <h3 className="font-bold text-sm flex items-center gap-2">
+                        <span className="w-1.5 h-5 bg-claude rounded-full"></span>
+                        Custom Instructions（點擊複製）
+                      </h3>
+                      <button
+                        onClick={() =>
+                          handleCopy(t.instructions, `instr-${t.id}`)
+                        }
+                        className="text-xs px-3 py-1 rounded-lg bg-claude text-white hover:bg-claude-light transition-colors cursor-pointer"
+                      >
+                        {copied === `instr-${t.id}`
+                          ? "\u2713 已複製"
+                          : "複製指令"}
+                      </button>
+                    </div>
+                    <div
+                      onClick={() =>
+                        handleCopy(t.instructions, `instr-${t.id}`)
+                      }
+                      className="bg-primary/[0.03] border border-card-border rounded-xl p-4 text-xs font-mono whitespace-pre-wrap leading-relaxed cursor-pointer hover:border-claude/30 transition-colors max-h-80 overflow-y-auto"
+                    >
+                      {t.instructions}
+                    </div>
+                  </div>
+                  <div className="mb-6">
+                    <h3 className="font-bold text-sm flex items-center gap-2 mb-2">
+                      <span className="w-1.5 h-5 bg-accent rounded-full"></span>
+                      建議上傳的檔案
+                    </h3>
+                    <ul className="space-y-1.5">
+                      {t.files.map((f, i) => (
+                        <li
+                          key={i}
+                          className="text-sm text-muted flex items-start gap-2"
+                        >
+                          <span className="text-accent mt-0.5">&#9679;</span>
+                          {f}
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
+                  <div>
+                    <h3 className="font-bold text-sm flex items-center gap-2 mb-2">
+                      <span className="w-1.5 h-5 bg-blue rounded-full"></span>
+                      範例 Prompt（可直接使用）
+                    </h3>
+                    <div className="space-y-2">
+                      {t.examplePrompts.map((p, i) => (
+                        <div
+                          key={i}
+                          onClick={() =>
+                            handleCopy(p, `prompt-${t.id}-${i}`)
+                          }
+                          className="group flex items-start gap-3 p-3 bg-blue/[0.03] border border-blue/10 rounded-lg cursor-pointer hover:border-blue/30 transition-colors"
+                        >
+                          <span className="text-blue text-xs mt-0.5 flex-shrink-0">
+                            {copied === `prompt-${t.id}-${i}`
+                              ? "\u2713"
+                              : `${i + 1}.`}
+                          </span>
+                          <span className="text-sm flex-1">{p}</span>
+                          <span className="text-xs text-muted opacity-0 group-hover:opacity-100 transition-opacity flex-shrink-0">
+                            點擊複製
+                          </span>
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+                </div>
+              )}
+            </div>
+          );
+        })}
+      </div>
+
+      {/* Section 3: 精選模板參考 */}
+      <div className="mt-10 mb-4">
+        <div className="flex items-center justify-between">
+          <div>
+            <h2 className="text-xl font-bold flex items-center gap-2">
+              <span className="w-2 h-6 bg-primary rounded-full"></span>
+              精選模板參考
+            </h2>
+            <p className="text-sm text-muted mt-1">
+              來自企業運營 Prompt 資料庫，涵蓋行銷、業務、跨部門場景
+            </p>
+          </div>
+          <div className="flex items-center gap-1 bg-white border border-card-border rounded-lg p-1">
+            <button
+              onClick={() => setViewMode("grid")}
+              className={`p-1.5 rounded transition-colors cursor-pointer ${
+                viewMode === "grid"
+                  ? "bg-primary/10 text-primary"
+                  : "text-muted hover:text-primary"
+              }`}
+              title="卡片檢視"
+            >
+              <svg
+                width="18"
+                height="18"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke="currentColor"
+                strokeWidth="2"
+              >
+                <rect x="3" y="3" width="7" height="7" rx="1" />
+                <rect x="14" y="3" width="7" height="7" rx="1" />
+                <rect x="3" y="14" width="7" height="7" rx="1" />
+                <rect x="14" y="14" width="7" height="7" rx="1" />
+              </svg>
+            </button>
+            <button
+              onClick={() => setViewMode("list")}
+              className={`p-1.5 rounded transition-colors cursor-pointer ${
+                viewMode === "list"
+                  ? "bg-primary/10 text-primary"
+                  : "text-muted hover:text-primary"
+              }`}
+              title="列表檢視"
+            >
+              <svg
+                width="18"
+                height="18"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke="currentColor"
+                strokeWidth="2"
+              >
+                <line x1="3" y1="6" x2="21" y2="6" />
+                <line x1="3" y1="12" x2="21" y2="12" />
+                <line x1="3" y1="18" x2="21" y2="18" />
+              </svg>
+            </button>
+          </div>
+        </div>
+      </div>
+
+      {/* Department filter */}
+      <div className="flex flex-wrap gap-2 mb-6">
+        <button
+          onClick={() => setDeptFilter("all")}
+          className={`px-3 py-1 text-xs rounded-full border transition-colors cursor-pointer ${
+            deptFilter === "all"
+              ? "bg-primary text-white border-primary"
+              : "border-card-border text-muted hover:border-primary/30"
+          }`}
+        >
+          全部
+        </button>
+        {allDepts.map((dept) => (
+          <button
+            key={dept}
+            onClick={() => setDeptFilter(dept)}
+            className={`px-3 py-1 text-xs rounded-full border transition-colors cursor-pointer ${
+              deptFilter === dept
+                ? "bg-primary text-white border-primary"
+                : "border-card-border text-muted hover:border-primary/30"
+            }`}
+          >
+            {dept}
+          </button>
+        ))}
+      </div>
+
+      {/* Grid / List view */}
+      {viewMode === "grid" ? (
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 mb-8">
+          {filteredNotion.map((p) => (
+            <a
+              key={p.id}
+              href={p.notionUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="bg-white rounded-xl border border-card-border p-4 hover:border-accent/30 hover:shadow-md transition-all group block"
+            >
+              <div className="flex items-start gap-3 mb-3">
+                <span className="text-2xl flex-shrink-0">{p.icon}</span>
+                <div className="flex-1 min-w-0">
+                  <h3 className="font-bold text-sm mb-1 group-hover:text-claude transition-colors">
+                    {p.name}
+                  </h3>
+                  <span
+                    className={`text-[10px] px-2 py-0.5 rounded-full ${
+                      deptColorMap[p.department] || "bg-gray-100 text-gray-600"
+                    }`}
+                  >
+                    {p.department}
+                  </span>
+                </div>
+              </div>
+              <p className="text-xs text-muted leading-relaxed mb-3">
+                {p.tagline}
+              </p>
+              <div className="flex flex-wrap gap-1 mb-3">
+                {p.tags.map((tag) => (
+                  <span
+                    key={tag}
+                    className="text-[10px] px-1.5 py-0.5 bg-primary/5 text-muted rounded"
+                  >
+                    {tag}
+                  </span>
+                ))}
+              </div>
+              <span className="text-xs text-claude flex items-center gap-1 opacity-60 group-hover:opacity-100 transition-opacity">
+                查看完整 Prompt &#8594;
+              </span>
+            </a>
+          ))}
+        </div>
+      ) : (
+        <div className="space-y-2 mb-8">
+          {filteredNotion.map((p) => (
+            <a
+              key={p.id}
+              href={p.notionUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="flex items-center gap-4 p-3 bg-white rounded-lg border border-card-border hover:border-accent/30 transition-all group block"
+            >
+              <span className="text-xl flex-shrink-0">{p.icon}</span>
+              <div className="flex-1 min-w-0">
+                <div className="flex items-center gap-2 mb-0.5 flex-wrap">
+                  <h3 className="font-bold text-sm group-hover:text-claude transition-colors">
+                    {p.name}
+                  </h3>
+                  <span
+                    className={`text-[10px] px-2 py-0.5 rounded-full ${
+                      deptColorMap[p.department] || "bg-gray-100 text-gray-600"
+                    }`}
+                  >
+                    {p.department}
+                  </span>
+                  {p.tags.slice(0, 2).map((tag) => (
+                    <span
+                      key={tag}
+                      className="text-[10px] px-1.5 py-0.5 bg-primary/5 text-muted rounded hidden sm:inline"
+                    >
+                      {tag}
+                    </span>
+                  ))}
+                </div>
+                <p className="text-xs text-muted truncate">{p.tagline}</p>
+              </div>
+              <span className="text-xs text-claude opacity-0 group-hover:opacity-100 transition-opacity flex-shrink-0">
+                查看 &#8594;
+              </span>
+            </a>
+          ))}
+        </div>
+      )}
 
       {/* Bottom CTA */}
       <div className="mt-12 bg-primary rounded-2xl p-8 text-center text-white">
