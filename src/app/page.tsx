@@ -225,17 +225,6 @@ export default function Home() {
             <p className="text-white/60 mb-6 max-w-lg mx-auto">
               其實是你終於學會怎麼跟它合作了
             </p>
-            <div className="flex flex-col sm:flex-row items-center justify-center gap-6 text-sm text-accent-light mb-6">
-              <div className="flex items-center gap-2">
-                <span>&#128197;</span> 2026/3/24（二）20:00
-              </div>
-              <div className="flex items-center gap-2">
-                <span>&#9201;</span> 2 小時（含回放）
-              </div>
-              <div className="flex items-center gap-2">
-                <span>&#128176;</span> $300
-              </div>
-            </div>
             <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
               <a
                 href="https://www.accupass.com/go/claude0409"
