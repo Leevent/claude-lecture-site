@@ -46,9 +46,7 @@ const placeholders: PromptFields = {
   context: "例：課程主題是 Claude AI 應用，目標受眾是 25-40 歲上班族，品牌調性輕鬆專業",
   format: "例：300 字以內、包含一個 CTA、用條列式重點、附上 3 個 hashtag",
   quality: "例：語氣親切但專業、避免過度銷售感、需要包含具體數據或案例",
-  examples: "例：
-輸入：我剛開始學 Claude，有點不知道從哪裡下手
-輸出：建議先從日常工作中找一件重複性高的小事（如整理 Email 摘要），用 Claude 幫你做一次，感受差異之後，再慢慢擴展使用場景。",
+  examples: "例：\n輸入：我剛開始學 Claude，有點不知道從哪裡下手\n輸出：建議先從日常工作中找一件重複性高的小事（如整理 Email 摘要），用 Claude 幫你做一次，感受差異之後，再慢慢擴展使用場景。",
 };
 
 const labels: Record<keyof PromptFields, { label: string; tip: string }> = {
@@ -87,11 +85,8 @@ const examplePresets = [
       context: "目標受眾是 25-40 歲科技業上班族，對 AI 有興趣但還沒深入使用",
       format: "300 字以內、分段清晰、結尾附一個互動問題和 3 個 hashtag",
       quality: "語氣像朋友分享經驗、避免術語堆砌、需包含一個具體使用場景",
-      examples: "我用 Claude 寫完了過去要花 2 小時的週報，現在 20 分鐘搞定。
+      examples: "我用 Claude 寫完了過去要花 2 小時的週報，現在 20 分鐘搞定。\n\n秘訣不是叫它「寫週報」，而是給它模板 + 背景 + 這週的重點事項。\n\n你現在最想用 AI 省掘哪一個工作環節？",
 
-秘訣不是叫它「寫週報」，而是給它模板 + 背景 + 這週的重點事項。
-
-你現在最想用 AI 省掉哪一個工作環節？",
     },
   },
   {
