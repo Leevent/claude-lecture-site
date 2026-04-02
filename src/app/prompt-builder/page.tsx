@@ -8,6 +8,7 @@ interface PromptFields {
   context: string;
   format: string;
   quality: string;
+  examples: string;
 }
 
 interface AdvancedOptions {
@@ -45,6 +46,9 @@ const placeholders: PromptFields = {
   context: "例：課程主題是 Claude AI 應用，目標受眾是 25-40 歲上班族，品牌調性輕鬆專業",
   format: "例：300 字以內、包含一個 CTA、用條列式重點、附上 3 個 hashtag",
   quality: "例：語氣親切但專業、避免過度銷售感、需要包含具體數據或案例",
+  examples: "例：
+輸入：我剛開始學 Claude，有點不知道從哪裡下手
+輸出：建議先從日常工作中找一件重複性高的小事（如整理 Email 摘要），用 Claude 幫你做一次，感受差異之後，再慢慢擴展使用場景。",
 };
 
 const labels: Record<keyof PromptFields, { label: string; tip: string }> = {
@@ -68,6 +72,10 @@ const labels: Record<keyof PromptFields, { label: string; tip: string }> = {
     label: "品質標準 (Quality)",
     tip: "什麼樣的結果才算好？",
   },
+  examples: {
+    label: "範例 (Examples)",
+    tip: "貼上一段你期望的輸出樣式，或類似問題的好答案 — Anthropic、Google、OpenAI 三家官方文件一致認為，提供範例是讓 AI 快速對齊你期望的最有效方法",
+  },
 };
 
 const examplePresets = [
@@ -79,6 +87,11 @@ const examplePresets = [
       context: "目標受眾是 25-40 歲科技業上班族，對 AI 有興趣但還沒深入使用",
       format: "300 字以內、分段清晰、結尾附一個互動問題和 3 個 hashtag",
       quality: "語氣像朋友分享經驗、避免術語堆砌、需包含一個具體使用場景",
+      examples: "我用 Claude 寫完了過去要花 2 小時的週報，現在 20 分鐘搞定。
+
+秘訣不是叫它「寫週報」，而是給它模板 + 背景 + 這週的重點事項。
+
+你現在最想用 AI 省掉哪一個工作環節？",
     },
   },
   {
@@ -89,6 +102,7 @@ const examplePresets = [
       context: "這是行銷部門的週會，討論了下季度的推廣計畫",
       format: "包含：決議事項（表格）、行動項目（負責人+截止日）、未決議題、下次會議提醒",
       quality: "確保每個行動項目都有明確的負責人和截止日期，模糊的討論用「待確認」標註",
+      examples: "",
     },
   },
   {
@@ -99,6 +113,7 @@ const examplePresets = [
       context: "課程品牌定位是「讓非技術人員也能掌握 AI 生產力」，競品主打技術深度",
       format: "一句主標題（15 字內）+ 三段特色描述（各 50 字）+ 一個 CTA 按鈕文字",
       quality: "強調「實用 > 技術」，避免誇大承諾，語氣自信但不傲慢",
+      examples: "",
     },
   },
 ];
@@ -110,6 +125,7 @@ export default function PromptBuilderPage() {
     context: "",
     format: "",
     quality: "",
+    examples: "",
   });
   const [advanced, setAdvanced] = useState<AdvancedOptions>({
     cot: false,
@@ -166,7 +182,7 @@ export default function PromptBuilderPage() {
   };
 
   const handleClear = () => {
-    setFields({ role: "", task: "", context: "", format: "", quality: "" });
+    setFields({ role: "", task: "", context: "", format: "", quality: "", examples: "" });
     setAdvanced({
       cot: false,
       fewShotEnabled: false,
@@ -180,7 +196,7 @@ export default function PromptBuilderPage() {
       <div className="mb-8">
         <h1 className="text-3xl font-bold mb-2">Prompt 建構器</h1>
         <p className="text-muted">
-          用五元素框架（Role / Task / Context / Format / Quality）組合出專業 Prompt。
+          用六元素框架（Role / Task / Context / Format / Quality / <span style={{color:"var(--claude)"}}>Examples</span>）組合出專業 Prompt。
           填完直接複製貼到 Claude。
         </p>
       </div>
@@ -210,7 +226,7 @@ export default function PromptBuilderPage() {
         <div className="space-y-5">
           <div className="flex items-center gap-2 mb-2">
             <div className="flex gap-1">
-              {[1, 2, 3, 4, 5].map((i) => (
+              {[1, 2, 3, 4, 5, 6].map((i) => (
                 <div
                   key={i}
                   className={`w-2 h-2 rounded-full transition-colors ${
@@ -219,7 +235,7 @@ export default function PromptBuilderPage() {
                 />
               ))}
             </div>
-            <span className="text-xs text-muted">{filledCount}/5 已填寫</span>
+            <span className="text-xs text-muted">{filledCount}/6 已填寫</span>
           </div>
 
           {(Object.keys(labels) as Array<keyof PromptFields>).map((key) => (
@@ -232,7 +248,7 @@ export default function PromptBuilderPage() {
                 value={fields[key]}
                 onChange={(e) => updateField(key, e.target.value)}
                 placeholder={placeholders[key]}
-                rows={key === "task" || key === "context" ? 3 : 2}
+                rows={key === "task" || key === "context" || key === "examples" ? 3 : 2}
                 className="w-full px-4 py-3 rounded-xl border border-card-border bg-white text-sm focus:outline-none focus:ring-2 focus:ring-claude/30 focus:border-claude transition-all resize-none"
               />
             </div>
@@ -395,10 +411,10 @@ export default function PromptBuilderPage() {
                 </pre>
               )}
             </div>
-            {filledCount > 0 && filledCount < 5 && (
+            {filledCount > 0 && filledCount < 6 && (
               <p className="text-xs text-amber-600 mt-3 flex items-center gap-1">
                 <span>&#9888;</span>
-                還有 {5 - filledCount} 個欄位未填，填越完整效果越好
+                還有 {6 - filledCount} 個欄位未填，填越完整效果越好
               </p>
             )}
           </div>
@@ -409,7 +425,7 @@ export default function PromptBuilderPage() {
             <ul className="space-y-2 text-xs text-muted">
               <li className="flex items-start gap-2">
                 <span className="text-accent mt-0.5">&#9679;</span>
-                「反面約束」比正向鼓勵有效 &mdash; 告訴 Claude「不要做什麼」遵守率更高
+                告訴 Claude 要「做什麼」比說「不要做什麼」更有效 &mdash; Anthropic 官方文件明確指出：正向指令（Tell Claude what to do）比反面限制更精準
               </li>
               <li className="flex items-start gap-2">
                 <span className="text-accent mt-0.5">&#9679;</span>
@@ -448,6 +464,13 @@ function buildPrompt(fields: PromptFields, advanced: AdvancedOptions): string {
   }
   if (fields.quality.trim()) {
     parts.push(`## 品質要求\n${fields.quality.trim()}`);
+  }
+
+  if (fields.examples.trim()) {
+    parts.push(`## 參考範例
+請參考以下範例的格式和風格來回答：
+
+${fields.examples.trim()}`);
   }
 
   // Advanced: Chain of Thought
